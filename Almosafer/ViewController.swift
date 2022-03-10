@@ -7,11 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeNavigationBarAppearance()
+        setUpSearchBar()
         title = "Dubai, United Arab Emirates"
     }
     
@@ -22,6 +23,15 @@ class ViewController: UIViewController {
         appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+        navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
+    }
+    
+    func setUpSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search hotels from this list"
+        navigationItem.searchController = searchController
     }
 }
 
