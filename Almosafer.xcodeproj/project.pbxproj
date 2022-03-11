@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		5825D63627DA2009005A4F13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63527DA2009005A4F13 /* AppDelegate.swift */; };
 		5825D63827DA2009005A4F13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63727DA2009005A4F13 /* SceneDelegate.swift */; };
-		5825D63A27DA2009005A4F13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63927DA2009005A4F13 /* ViewController.swift */; };
+		5825D63A27DA2009005A4F13 /* HotelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63927DA2009005A4F13 /* HotelListViewController.swift */; };
 		5825D63D27DA2009005A4F13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5825D63B27DA2009005A4F13 /* Main.storyboard */; };
 		5825D63F27DA200B005A4F13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5825D63E27DA200B005A4F13 /* Assets.xcassets */; };
 		5825D64227DA200B005A4F13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5825D64027DA200B005A4F13 /* LaunchScreen.storyboard */; };
 		5825D64D27DA200C005A4F13 /* AlmosaferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D64C27DA200C005A4F13 /* AlmosaferTests.swift */; };
 		5825D65727DA200C005A4F13 /* AlmosaferUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D65627DA200C005A4F13 /* AlmosaferUITests.swift */; };
 		5825D65927DA200C005A4F13 /* AlmosaferUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D65827DA200C005A4F13 /* AlmosaferUITestsLaunchTests.swift */; };
+		5867AE1927DB6B1F00A9B18B /* HotelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5867AE1827DB6B1F00A9B18B /* HotelCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,7 @@
 		5825D63227DA2009005A4F13 /* Almosafer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Almosafer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5825D63527DA2009005A4F13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5825D63727DA2009005A4F13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5825D63927DA2009005A4F13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5825D63927DA2009005A4F13 /* HotelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelListViewController.swift; sourceTree = "<group>"; };
 		5825D63C27DA2009005A4F13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5825D63E27DA200B005A4F13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5825D64127DA200B005A4F13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		5825D65227DA200C005A4F13 /* AlmosaferUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlmosaferUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5825D65627DA200C005A4F13 /* AlmosaferUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlmosaferUITests.swift; sourceTree = "<group>"; };
 		5825D65827DA200C005A4F13 /* AlmosaferUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlmosaferUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5867AE1827DB6B1F00A9B18B /* HotelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,8 @@
 			children = (
 				5825D63527DA2009005A4F13 /* AppDelegate.swift */,
 				5825D63727DA2009005A4F13 /* SceneDelegate.swift */,
-				5825D63927DA2009005A4F13 /* ViewController.swift */,
+				5825D63927DA2009005A4F13 /* HotelListViewController.swift */,
+				5867AE1827DB6B1F00A9B18B /* HotelCollectionViewCell.swift */,
 				5825D63B27DA2009005A4F13 /* Main.storyboard */,
 				5825D63E27DA200B005A4F13 /* Assets.xcassets */,
 				5825D64027DA200B005A4F13 /* LaunchScreen.storyboard */,
@@ -258,9 +261,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5825D63A27DA2009005A4F13 /* ViewController.swift in Sources */,
+				5825D63A27DA2009005A4F13 /* HotelListViewController.swift in Sources */,
 				5825D63627DA2009005A4F13 /* AppDelegate.swift in Sources */,
 				5825D63827DA2009005A4F13 /* SceneDelegate.swift in Sources */,
+				5867AE1927DB6B1F00A9B18B /* HotelCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
