@@ -26,6 +26,23 @@ class HotelListViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
+    @IBAction func showMap() {
+        guard let mapViewController = storyboard?.instantiateViewController(withIdentifier: "Map") else { return }
+        navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    
+    @IBAction func showFilterOptions() {
+        let alertController = UIAlertController(title: "Sort by…", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Recommended", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Lowest price", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Star rating", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Distance", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        present(alertController, animated: true)
     }
     
 }
