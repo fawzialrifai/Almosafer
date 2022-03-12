@@ -10,6 +10,7 @@ import UIKit
 class HotelCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var reviewScore: UILabel!

@@ -128,6 +128,7 @@
                                         <size key="customSize" width="414" height="200"/>
                                         <connections>
                                             <outlet property="address" destination="JSg-jk-Yug" id="8X5-Vi-O9X"/>
+                                            <outlet property="imageView" destination="FZ3-Ur-8dX" id="kuy-ZK-WVB"/>
                                             <outlet property="price" destination="JpF-eZ-DzU" id="cnT-cZ-IDn"/>
                                             <outlet property="reviewCount" destination="P45-hH-CWv" id="dwh-aN-ekc"/>
                                             <outlet property="reviewScore" destination="xF3-xl-shs" id="53d-Pr-pQf"/>

@@ -21,21 +21,33 @@ class HotelListViewController: UIViewController {
         customizeNavigationBarAppearance()
         setUpSearchBar()
         title = "Dubai, United Arab Emirates"
-        let urlString = "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json"
-        if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url) {
-                parse(json: data)
-            }
+        if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        if let jsonHotels = try? JSONDecoder().decode(Hotels.self, from: data) {
+                            for (_, value) in jsonHotels.hotels {
+                                self.hotels.append(value)
+                            }
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+            }.resume()
         }
     }
     
-    func parse(json: Data) {
-        let decoder = JSONDecoder()
-        if let jsonHotels = try? decoder.decode(Hotels.self, from: json) {
-            for (_, value) in jsonHotels.hotels {
-                hotels.append(value)
-            }
-            collectionView.reloadData()
+    func downloadImage(for hotel: Hotel) {
+        if let url = URL(string: hotel.thumbnailUrl) {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        hotel.imageData = data
+                        hotel.downloaded = true
+                        self.collectionView.reloadData()
+                    }
+                }
+            }.resume()
         }
     }
     
@@ -113,6 +125,12 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.layer.cornerRadius = 8
         let hotel = hotels[indexPath.row]
         cell.title.attributedText = hotel.attributedName
+        if hotel.downloaded == true {
+            cell.imageView.image = UIImage(data: hotel.imageData!)
+        } else {
+            cell.imageView.image = UIImage()
+            downloadImage(for: hotel)
+        }
         cell.price.text = hotel.priceWithCurrency
         cell.address.text = hotel.address["en"] as? String
         if let hotelReview = hotel.review {

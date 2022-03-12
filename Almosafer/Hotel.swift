@@ -9,7 +9,6 @@ import Foundation
 import MapKit
 
 class Hotel: NSObject, Codable, MKAnnotation {
-    
     let name: [String: String]
     let thumbnailUrl: String
     let starRating: Int?
@@ -20,6 +19,8 @@ class Hotel: NSObject, Codable, MKAnnotation {
     let distanceInMeters: Double
     let latitude: Double
     let longitude: Double
+    var imageData: Data?
+    var downloaded: Bool?
     
     var title: String? {
         get { name["en"] }
