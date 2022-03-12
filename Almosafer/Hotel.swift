@@ -23,14 +23,14 @@ class Hotel: NSObject, Codable, MKAnnotation {
     var downloaded: Bool?
     
     var title: String? {
-        get { name["en"] }
+        get { name[Locale.current.languageCode!] }
     }
     var coordinate: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
     }
     var attributedName: NSAttributedString {
         get {
-            let title = "\(name["en"]!) \(ratingString)"
+            let title = "\(name[Locale.current.languageCode!]!) \(ratingString)"
             let range = (title as NSString).range(of: ratingString)
             let mutableAttributedString = NSMutableAttributedString.init(string: title)
             mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
@@ -49,7 +49,7 @@ class Hotel: NSObject, Codable, MKAnnotation {
     }
     var priceWithCurrency: String {
         if let price = price {
-            return "AED \(price)"
+            return String(format: NSLocalizedString("AED %d", comment: ""), price)
         } else {
             return ""
         }

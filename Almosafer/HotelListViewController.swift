@@ -20,7 +20,7 @@ class HotelListViewController: UIViewController {
         super.viewDidLoad()
         customizeNavigationBarAppearance()
         setUpSearchBar()
-        title = "Dubai, United Arab Emirates"
+        title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data {
@@ -69,20 +69,20 @@ class HotelListViewController: UIViewController {
     }
     
     @IBAction func showSortOptions() {
-        let alertController = UIAlertController(title: "Sort by…", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Recommended", style: .default, handler: { action in
+        let alertController = UIAlertController(title: NSLocalizedString("Sort By:", comment: ""), message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Recommended", comment: ""), style: .default, handler: { action in
             self.sortHotels(by: .Recommended)
         }))
-        alertController.addAction(UIAlertAction(title: "Lowest price", style: .default, handler: { action in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Lowest Price", comment: ""), style: .default, handler: { action in
             self.sortHotels(by: .LowestPrice)
         }))
-        alertController.addAction(UIAlertAction(title: "Star rating", style: .default, handler: { action in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Star Rating", comment: ""), style: .default, handler: { action in
             self.sortHotels(by: .StarRating)
         }))
-        alertController.addAction(UIAlertAction(title: "Distance", style: .default, handler: { action in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Distance", comment: ""), style: .default, handler: { action in
             self.sortHotels(by: .Distance)
         }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
         alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         present(alertController, animated: true)
     }
@@ -132,15 +132,15 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
             downloadImage(for: hotel)
         }
         cell.price.text = hotel.priceWithCurrency
-        cell.address.text = hotel.address["en"] as? String
+        cell.address.text = hotel.address[Locale.current.languageCode!] as? String
         if let hotelReview = hotel.review {
             if hotelReview.count == 0 {
                 cell.reviewStack.isHidden = true
             } else {
                 cell.reviewStack.isHidden = false
                 cell.reviewScore.text = "\(hotelReview.score)"
-                cell.reviewScoreDescription.text = hotelReview.scoreDescription["en"]
-                cell.reviewCount.text = "\(hotelReview.count) reviews"
+                cell.reviewScoreDescription.text = hotelReview.scoreDescription[Locale.current.languageCode!]
+                cell.reviewCount.text = String(format: NSLocalizedString("%d reviews", comment: ""), hotelReview.count)
             }
             
         } else {
@@ -167,7 +167,7 @@ extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelega
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchBar.tintColor = .white
-        searchController.searchBar.placeholder = "Search hotels from this list"
+        searchController.searchBar.placeholder = NSLocalizedString("Search for a hotel", comment: "Search placeholder")
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }

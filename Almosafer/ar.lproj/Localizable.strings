@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Almosafer
+
+  Created by Fawzi Rifa'i on 12/03/2022.
+  
+*/
+"Dubai, United Arab Emirates" = "دبي، الإمارات العربية المتحدة";
+"Search for a hotel" = "البحث عن فندق";
+"Sort By:" = "فرز حسب:";
+"Recommended" = "توصيات المسافر";
+"Lowest Price" = "الأقل سعرًا";
+"Star Rating" = "الأعلى تقييمًا";
+"Distance" = "المسافة";
+"Cancel" = "إلغاء";
+"%d reviews" = "%d تقييمات";
+"AED %d" = "%d د.إ";

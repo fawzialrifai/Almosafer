@@ -1,0 +1,30 @@
+
+/* Class = "UIButton"; configuration.title = "Sort"; ObjectID = "2Id-WC-YQr"; */
+"2Id-WC-YQr.configuration.title" = "Sort";
+
+/* Class = "UIButton"; normalTitle = "Sort"; ObjectID = "2Id-WC-YQr"; */
+"2Id-WC-YQr.normalTitle" = "فرز";
+
+/* Class = "UILabel"; text = "2 km from Internation airport"; ObjectID = "JSg-jk-Yug"; */
+"JSg-jk-Yug.text" = "2 km from Internation airport";
+
+/* Class = "UILabel"; text = "AED 620"; ObjectID = "JpF-eZ-DzU"; */
+"JpF-eZ-DzU.text" = "AED 620";
+
+/* Class = "UILabel"; text = "Very Good"; ObjectID = "KNl-gW-MzH"; */
+"KNl-gW-MzH.text" = "Very Good";
+
+/* Class = "UILabel"; text = "1,430 reviews"; ObjectID = "P45-hH-CWv"; */
+"P45-hH-CWv.text" = "1,430 reviews";
+
+/* Class = "UIButton"; configuration.title = "Map"; ObjectID = "SFg-2z-cnZ"; */
+"SFg-2z-cnZ.configuration.title" = "Map";
+
+/* Class = "UIButton"; normalTitle = "Map"; ObjectID = "SFg-2z-cnZ"; */
+"SFg-2z-cnZ.normalTitle" = "الخريطة";
+
+/* Class = "UILabel"; text = "Best Western Plus Seraphine Hammersmith Hotel ★★★★★"; ObjectID = "WNU-Ac-fyI"; */
+"WNU-Ac-fyI.text" = "Best Western Plus Seraphine Hammersmith Hotel ★★★★★";
+
+/* Class = "UILabel"; text = "9.8"; ObjectID = "xF3-xl-shs"; */
+"xF3-xl-shs.text" = "9.8";

@@ -59,7 +59,7 @@
                                                         <constraint firstAttribute="height" constant="200" id="hgB-Ma-6KZ"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Western Plus Seraphine Hammersmith Hotel ★★★★★" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNU-Ac-fyI">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Western Plus Seraphine Hammersmith Hotel ★★★★★" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNU-Ac-fyI">
                                                     <rect key="frame" x="108" y="8" width="284.5" height="36"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -148,7 +148,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Id-WC-YQr">
                                         <rect key="frame" x="0.0" y="0.0" width="207.5" height="50"/>
-                                        <color key="tintColor" name="AccentColor"/>
+                                        <color key="tintColor" name="ButtonColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Sort" image="arrow.up.arrow.down" catalog="system"/>
                                         <buttonConfiguration key="configuration" style="plain" image="arrow.up.arrow.down" catalog="system" title="Sort"/>
@@ -166,7 +166,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFg-2z-cnZ">
                                         <rect key="frame" x="208.5" y="0.0" width="206.5" height="50"/>
-                                        <color key="tintColor" name="AccentColor"/>
+                                        <color key="tintColor" name="ButtonColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Map" image="map" catalog="system"/>
                                         <buttonConfiguration key="configuration" style="plain" image="map" catalog="system" title="Map"/>
@@ -175,6 +175,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZAa-9R-BGC"/>
                                 </constraints>
@@ -236,11 +237,11 @@
         <image name="HotelImage" width="644" height="942"/>
         <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="map" catalog="system" width="128" height="110"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.19600000000000001" blue="0.27059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="BackgroundColor">
             <color red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ButtonColor">
+            <color red="0.0" green="0.19600000000000001" blue="0.27100000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

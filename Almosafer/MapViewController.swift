@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Dubai, United Arab Emirates"
+        title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         let initialLocation = CLLocation(latitude: 25.2048493, longitude: 55.2707828)
         let coordinateRegion = MKCoordinateRegion(center: initialLocation.coordinate, latitudinalMeters: 20000, longitudinalMeters: 20000)
         mapView.setRegion(coordinateRegion, animated: false)
