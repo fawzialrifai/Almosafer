@@ -17,4 +17,5 @@ class HotelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var reviewScoreDescription: UILabel!
     @IBOutlet weak var reviewCount: UILabel!
     @IBOutlet weak var reviewStack: UIView!
+    
 }
