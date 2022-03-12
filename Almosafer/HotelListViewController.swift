@@ -7,15 +7,36 @@
 
 import UIKit
 
+enum SortBy {
+    case Recommended, LowestPrice, StarRating, Distance
+}
+
 class HotelListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    var hotels = [Hotel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeNavigationBarAppearance()
         setUpSearchBar()
         title = "Dubai, United Arab Emirates"
+        let urlString = "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json"
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url) {
+                parse(json: data)
+            }
+        }
+    }
+    
+    func parse(json: Data) {
+        let decoder = JSONDecoder()
+        if let jsonHotels = try? decoder.decode(Hotels.self, from: json) {
+            for (_, value) in jsonHotels.hotels {
+                hotels.append(value)
+            }
+            collectionView.reloadData()
+        }
     }
     
     func customizeNavigationBarAppearance() {
@@ -30,19 +51,52 @@ class HotelListViewController: UIViewController {
     }
     
     @IBAction func showMap() {
-        guard let mapViewController = storyboard?.instantiateViewController(withIdentifier: "Map") else { return }
+        guard let mapViewController = storyboard?.instantiateViewController(withIdentifier: "Map") as? MapViewController else { return }
+        mapViewController.hotels = hotels
         navigationController?.pushViewController(mapViewController, animated: true)
     }
     
-    @IBAction func showFilterOptions() {
+    @IBAction func showSortOptions() {
         let alertController = UIAlertController(title: "Sort by…", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Recommended", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Lowest price", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Star rating", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Distance", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Recommended", style: .default, handler: { action in
+            self.sortHotels(by: .Recommended)
+        }))
+        alertController.addAction(UIAlertAction(title: "Lowest price", style: .default, handler: { action in
+            self.sortHotels(by: .LowestPrice)
+        }))
+        alertController.addAction(UIAlertAction(title: "Star rating", style: .default, handler: { action in
+            self.sortHotels(by: .StarRating)
+        }))
+        alertController.addAction(UIAlertAction(title: "Distance", style: .default, handler: { action in
+            self.sortHotels(by: .Distance)
+        }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         present(alertController, animated: true)
+    }
+    
+    func sortHotels(by sortOption: SortBy) {
+        switch sortOption {
+        case .Recommended:
+            hotels.sort(by: { $0.priorityScore > $1.priorityScore })
+        case .LowestPrice:
+            hotels.sort(by: {
+                if let firstElementPrice = $0.price {
+                    if let secondElementPrice = $1.price {
+                        return firstElementPrice < secondElementPrice
+                    } else {
+                        return true
+                    }
+                } else {
+                    return false
+                }
+            })
+        case .StarRating:
+            hotels.sort(by: { $0.starRating ?? 0 > $1.starRating ?? 0 })
+        case .Distance:
+            hotels.sort(by: { $0.distanceInMeters < $1.distanceInMeters })
+        }
+        collectionView.reloadData()
     }
     
 }
@@ -50,19 +104,30 @@ class HotelListViewController: UIViewController {
 extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return hotels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Hotel Cell", for: indexPath as IndexPath) as! HotelCollectionViewCell
         cell.backgroundColor = UIColor.secondarySystemGroupedBackground
         cell.layer.cornerRadius = 8
-        let starString = "★★★★★"
-        let title = "Best Western Plus Seraphine Hammersmith Hotel \(starString)"
-        let range = (title as NSString).range(of: starString)
-        let mutableAttributedString = NSMutableAttributedString.init(string: title)
-        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
-        cell.title.attributedText = mutableAttributedString
+        let hotel = hotels[indexPath.row]
+        cell.title.attributedText = hotel.attributedName
+        cell.price.text = hotel.priceWithCurrency
+        cell.address.text = hotel.address["en"] as? String
+        if let hotelReview = hotel.review {
+            if hotelReview.count == 0 {
+                cell.reviewStack.isHidden = true
+            } else {
+                cell.reviewStack.isHidden = false
+                cell.reviewScore.text = "\(hotelReview.score)"
+                cell.reviewScoreDescription.text = hotelReview.scoreDescription["en"]
+                cell.reviewCount.text = "\(hotelReview.count) reviews"
+            }
+            
+        } else {
+            cell.reviewStack.isHidden = true
+        }
         cell.layoutIfNeeded()
         return cell
     }

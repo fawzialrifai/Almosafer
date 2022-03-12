@@ -11,18 +11,15 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet private var mapView: MKMapView!
+    var hotels: [Hotel]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let initialLocation = CLLocation(latitude: 25.2048, longitude: 55.2708)
         title = "Dubai, United Arab Emirates"
-        let coordinateRegion = MKCoordinateRegion(
-            center: initialLocation.coordinate,
-            latitudinalMeters: 20000,
-            longitudinalMeters: 20000)
-        mapView.setRegion(coordinateRegion, animated: true)
-        let hotel = Hotel(title: "Best Western Plus Seraphine Hammersmith Hotel", coordinate: CLLocationCoordinate2D(latitude: 25.097271599664083, longitude: 55.17477966749379))
-        mapView.addAnnotation(hotel)
+        let initialLocation = CLLocation(latitude: 25.2048493, longitude: 55.2707828)
+        let coordinateRegion = MKCoordinateRegion(center: initialLocation.coordinate, latitudinalMeters: 20000, longitudinalMeters: 20000)
+        mapView.setRegion(coordinateRegion, animated: false)
+        mapView.addAnnotations(hotels)
     }
     
 }
