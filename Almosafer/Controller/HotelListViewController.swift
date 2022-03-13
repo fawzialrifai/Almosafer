@@ -7,14 +7,11 @@
 
 import UIKit
 
-enum SortBy {
-    case Recommended, LowestPrice, StarRating, Distance
-}
-
 class HotelListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dividerWidth: NSLayoutConstraint!
+    @IBOutlet weak var buttonStackView: UIView!
     
     var hotels = [Hotel]()
     var filteredHotels = [Hotel]()
@@ -27,6 +24,7 @@ class HotelListViewController: UIViewController {
         customizeNavigationBarAppearance()
         fixDividerWidth()
         setUpSearchBar()
+        setUpShadow(for: buttonStackView)
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         navigationItem.backButtonTitle = "Search Results"
         navigationItem.backButtonDisplayMode = .minimal
@@ -251,4 +249,15 @@ extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelega
           collectionView.reloadData()
     }
     
+}
+
+enum SortBy {
+    case Recommended, LowestPrice, StarRating, Distance
+}
+
+func setUpShadow(for view: UIView) {
+    view.layer.masksToBounds = false
+    view.layer.shadowOffset = CGSize.zero
+    view.layer.shadowRadius = 0.5
+    view.layer.shadowOpacity = 0.5
 }

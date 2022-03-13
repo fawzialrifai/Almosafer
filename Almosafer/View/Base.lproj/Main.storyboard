@@ -208,6 +208,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="s3q-vp-d0V"/>
                     <connections>
+                        <outlet property="buttonStackView" destination="9w0-S1-6NN" id="wVY-uo-SsC"/>
                         <outlet property="collectionView" destination="E1g-0q-pwo" id="aTG-bK-LJ6"/>
                         <outlet property="dividerWidth" destination="d5I-SH-Ln9" id="BAq-J4-Wv8"/>
                     </connections>

@@ -23,10 +23,7 @@ class HotelCollectionViewCell: UICollectionViewCell {
         backgroundColor = UIColor.secondarySystemGroupedBackground
         layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
-        layer.masksToBounds = false
-        layer.shadowOffset = CGSize.zero
-        layer.shadowRadius = 1
-        layer.shadowOpacity = 0.5
+        setUpShadow(for: self)
         layoutIfNeeded()
     }
     
