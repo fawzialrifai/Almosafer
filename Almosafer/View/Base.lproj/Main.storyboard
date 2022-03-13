@@ -67,7 +67,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2Ez-nF-D4h">
-                                                    <rect key="frame" x="108" y="52" width="160.5" height="35"/>
+                                                    <rect key="frame" x="108" y="52" width="164" height="35"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z5C-cV-QbN">
                                                             <rect key="frame" x="0.0" y="0.0" width="160.5" height="13.5"/>
@@ -95,12 +95,24 @@
                                                                 <constraint firstAttribute="height" constant="13.5" id="7CT-mv-19b"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 km from Internation airport" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSg-jk-Yug">
-                                                            <rect key="frame" x="0.0" y="21.5" width="151.5" height="13.5"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="7hv-6V-k3X">
+                                                            <rect key="frame" x="0.0" y="21.5" width="164" height="13.5"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mappin" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sfd-rA-wAf">
+                                                                    <rect key="frame" x="0.0" y="-0.5" width="10.5" height="13.5"/>
+                                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                    </preferredSymbolConfiguration>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 km from Internation airport" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSg-jk-Yug">
+                                                                    <rect key="frame" x="12.5" y="0.0" width="151.5" height="13.5"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AED 620" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JpF-eZ-DzU">
@@ -237,14 +249,15 @@
     <resources>
         <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="map" catalog="system" width="128" height="110"/>
+        <image name="mappin" catalog="system" width="105" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.0" green="0.19600000000000001" blue="0.27100000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.19599999487400055" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BackgroundColor">
             <color red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonColor">
-            <color red="0.0" green="0.19600000000000001" blue="0.27100000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.19599999487400055" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
