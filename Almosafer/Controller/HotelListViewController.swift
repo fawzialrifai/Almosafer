@@ -26,7 +26,7 @@ class HotelListViewController: UIViewController {
         setUpSearchBar()
         setUpShadow(for: buttonStackView)
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
-        navigationItem.backButtonTitle = "Search Results"
+        navigationItem.backButtonTitle = NSLocalizedString("Search Results", comment: "")
         navigationItem.backButtonDisplayMode = .minimal
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             isNetworkActivityIndicatorVisible = true

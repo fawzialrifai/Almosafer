@@ -25,6 +25,9 @@ class Hotel: NSObject, Codable, MKAnnotation {
     var title: String? {
         get { name[Locale.current.languageCode!] }
     }
+    var subtitle: String? {
+        get { priceWithCurrency }
+    }
     var coordinate: CLLocationCoordinate2D {
         get { CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
     }
