@@ -37,14 +37,14 @@ class HotelListViewController: UIViewController {
         }
     }
     
-    func downloadImage(for hotel: Hotel) {
+    func downloadImage(for hotel: Hotel, completionHandler: @escaping ((UIImage?) -> Void)) {
         if let url = URL(string: hotel.thumbnailUrl) {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data {
                     DispatchQueue.main.async {
                         hotel.imageData = data
                         hotel.downloaded = true
-                        self.collectionView.reloadData()
+                        completionHandler(UIImage(data: data))
                     }
                 }
             }.resume()
@@ -130,7 +130,9 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.imageView.image = UIImage(data: hotel.imageData!)
         } else {
             cell.imageView.image = nil
-            downloadImage(for: hotel)
+            downloadImage(for: hotel) { image in
+                cell.imageView.image = image
+            }
         }
         cell.price.text = hotel.priceWithCurrency
         cell.address.text = hotel.address[Locale.current.languageCode!] as? String
