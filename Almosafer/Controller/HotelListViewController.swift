@@ -25,30 +25,12 @@ class HotelListViewController: UIViewController {
         customizeNavigationBarAppearance()
         fixDividerWidth()
         setUpSearchBar()
-        setUpRefreshControl()
         setUpShadow(for: buttonStackView)
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         navigationItem.backButtonTitle = NSLocalizedString("Search Results", comment: "")
         navigationItem.backButtonDisplayMode = .minimal
-        if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
-            isNetworkActivityIndicatorVisible = true
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        if let jsonHotels = try? JSONDecoder().decode(Hotels.self, from: data) {
-                            for (_, value) in jsonHotels.hotels {
-                                self.hotels.append(value)
-                            }
-                        }
-                        self.isNetworkActivityIndicatorVisible = false
-                        self.collectionView.reloadData()
-                    }
-                } else {
-                    self.isNetworkActivityIndicatorVisible = false
-                    self.collectionView.reloadData()
-                }
-            }.resume()
-        }
+        setUpRefreshControl()
+        refreshHotelData()
     }
     
     func setUpRefreshControl() {
@@ -57,8 +39,10 @@ class HotelListViewController: UIViewController {
     }
     
     @objc func refreshHotelData() {
+        refreshControl.beginRefreshing()
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             isNetworkActivityIndicatorVisible = true
+            collectionView.reloadData()
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data {
                     DispatchQueue.main.async {
@@ -165,32 +149,22 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let emptyView = UIView(frame: CGRect(x: collectionView.frame.minX, y: collectionView.frame.minY, width: collectionView.frame.width, height: collectionView.frame.height))
-        let activityIndicator = UIActivityIndicatorView(style: .large)
         let label = UILabel()
         label.text = "No Hotels"
         label.textColor = .systemGray
         label.font = label.font.withSize(30)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
         if isHotelsFiltered {
             if filteredHotels.count == 0 {
                 collectionView.backgroundView = emptyView
                 if isNetworkActivityIndicatorVisible {
                     label.removeFromSuperview()
-                    emptyView.addSubview(activityIndicator)
-                    activityIndicator.startAnimating()
-                    activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-                    activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
                 } else {
-                    activityIndicator.stopAnimating()
-                    activityIndicator.removeFromSuperview()
                     emptyView.addSubview(label)
                     label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
                     label.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
                 }
             } else {
-                activityIndicator.stopAnimating()
-                activityIndicator.removeFromSuperview()
                 label.removeFromSuperview()
                 collectionView.backgroundView = nil
             }
@@ -200,20 +174,12 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
                 collectionView.backgroundView = emptyView
                 if isNetworkActivityIndicatorVisible {
                     label.removeFromSuperview()
-                    emptyView.addSubview(activityIndicator)
-                    activityIndicator.startAnimating()
-                    activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-                    activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
                 } else {
-                    activityIndicator.stopAnimating()
-                    activityIndicator.removeFromSuperview()
                     emptyView.addSubview(label)
                     label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
                     label.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
                 }
             } else {
-                activityIndicator.stopAnimating()
-                activityIndicator.removeFromSuperview()
                 label.removeFromSuperview()
                 collectionView.backgroundView = nil
             }
@@ -239,11 +205,11 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.price.text = hotel.priceWithCurrency
         cell.address.text = hotel.address[Locale.current.languageCode!] as? String
         if let hotelReview = hotel.review {
-                cell.reviewScore.text = "\(hotelReview.score)"
-                cell.reviewScore.backgroundColor = UIColor(hex: hotelReview.scoreColor)
-                cell.reviewScoreDescription.text = hotelReview.scoreDescription[Locale.current.languageCode!]
-                cell.reviewScoreDescription.textColor = UIColor(hex: hotelReview.scoreColor)
-                cell.reviewCount.text = String(format: NSLocalizedString("%d reviews", comment: ""), hotelReview.count)
+            cell.reviewScore.text = "\(hotelReview.score)"
+            cell.reviewScore.backgroundColor = UIColor(hex: hotelReview.scoreColor)
+            cell.reviewScoreDescription.text = hotelReview.scoreDescription[Locale.current.languageCode!]
+            cell.reviewScoreDescription.textColor = UIColor(hex: hotelReview.scoreColor)
+            cell.reviewCount.text = String(format: NSLocalizedString("%d reviews", comment: ""), hotelReview.count)
         } else {
             cell.reviewScore.text = "0.0"
             cell.reviewScore.backgroundColor = UIColor.secondaryLabel
@@ -277,7 +243,7 @@ extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelega
     
     func updateSearchResults(for searchController: UISearchController) {
         filteredHotels = hotels.filter { $0.name[Locale.current.languageCode!]!.lowercased().contains(searchController.searchBar.text!.lowercased()) }
-          collectionView.reloadData()
+        collectionView.reloadData()
     }
     
 }
