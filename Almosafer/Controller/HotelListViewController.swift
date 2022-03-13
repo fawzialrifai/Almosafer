@@ -156,7 +156,7 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Hotel Cell", for: indexPath as IndexPath) as! HotelCollectionViewCell
-        
+        cell.tag = indexPath.row
         cell.backgroundColor = UIColor.secondarySystemGroupedBackground
         cell.layer.cornerRadius = 8
         let hotel = hotels[indexPath.row]
@@ -166,7 +166,9 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         } else {
             cell.imageView.image = nil
             downloadImage(for: hotel) { image in
-                cell.imageView.image = image
+                if cell.tag == indexPath.row {
+                    cell.imageView.image = image
+                }
             }
         }
         cell.price.text = hotel.priceWithCurrency
