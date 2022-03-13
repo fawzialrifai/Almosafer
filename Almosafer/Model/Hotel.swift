@@ -83,6 +83,7 @@ class Hotel: NSObject, Codable, MKAnnotation {
         let count: Int
         let score: Double
         let scoreDescription: [String: String]
+        let scoreColor: String
     }
     
 }
