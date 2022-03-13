@@ -14,8 +14,12 @@ enum SortBy {
 class HotelListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var hotels = [Hotel]()
+    var filteredHotels = [Hotel]()
     var isNetworkActivityIndicatorVisible = false
+    let searchController = UISearchController(searchResultsController: nil)
+    var isHotelsFiltered: Bool { searchController.isActive && !searchController.searchBar.text!.isEmpty }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,28 +134,53 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         label.font = label.font.withSize(30)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
-        if hotels.count == 0 {
-            collectionView.backgroundView = emptyView
-            if isNetworkActivityIndicatorVisible {
-                label.removeFromSuperview()
-                emptyView.addSubview(activityIndicator)
-                activityIndicator.startAnimating()
-                activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-                activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+        if isHotelsFiltered {
+            if filteredHotels.count == 0 {
+                collectionView.backgroundView = emptyView
+                if isNetworkActivityIndicatorVisible {
+                    label.removeFromSuperview()
+                    emptyView.addSubview(activityIndicator)
+                    activityIndicator.startAnimating()
+                    activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+                    activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+                } else {
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                    emptyView.addSubview(label)
+                    label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+                    label.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+                }
             } else {
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
-                emptyView.addSubview(label)
-                label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-                label.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+                label.removeFromSuperview()
+                collectionView.backgroundView = nil
             }
+            return filteredHotels.count
         } else {
-            activityIndicator.stopAnimating()
-            activityIndicator.removeFromSuperview()
-            label.removeFromSuperview()
-            collectionView.backgroundView = nil
+            if hotels.count == 0 {
+                collectionView.backgroundView = emptyView
+                if isNetworkActivityIndicatorVisible {
+                    label.removeFromSuperview()
+                    emptyView.addSubview(activityIndicator)
+                    activityIndicator.startAnimating()
+                    activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+                    activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+                } else {
+                    activityIndicator.stopAnimating()
+                    activityIndicator.removeFromSuperview()
+                    emptyView.addSubview(label)
+                    label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+                    label.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+                }
+            } else {
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
+                label.removeFromSuperview()
+                collectionView.backgroundView = nil
+            }
+            return hotels.count
         }
-        return hotels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -159,7 +188,7 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.tag = indexPath.row
         cell.backgroundColor = UIColor.secondarySystemGroupedBackground
         cell.layer.cornerRadius = 8
-        let hotel = hotels[indexPath.row]
+        let hotel = isHotelsFiltered ? filteredHotels[indexPath.row] : hotels[indexPath.row]
         cell.title.attributedText = hotel.attributedName
         if hotel.downloaded == true {
             cell.imageView.image = UIImage(data: hotel.imageData!)
@@ -200,16 +229,21 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
     
 }
 
-extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelegate {
+extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating {
     
     func setUpSearchBar() {
-        let searchController = UISearchController(searchResultsController: nil)
         searchController.delegate = self
         searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
         searchController.searchBar.tintColor = .white
         searchController.searchBar.placeholder = NSLocalizedString("Search for a hotel", comment: "Search placeholder")
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredHotels = hotels.filter { $0.name[Locale.current.languageCode!]!.lowercased().contains(searchController.searchBar.text!.lowercased()) }
+          collectionView.reloadData()
     }
     
 }
