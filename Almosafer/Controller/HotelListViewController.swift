@@ -15,6 +15,7 @@ class HotelListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     var hotels = [Hotel]()
+    var isNetworkActivityIndicatorVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class HotelListViewController: UIViewController {
         setUpSearchBar()
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
+            isNetworkActivityIndicatorVisible = true
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data {
                     DispatchQueue.main.async {
@@ -29,9 +31,13 @@ class HotelListViewController: UIViewController {
                             for (_, value) in jsonHotels.hotels {
                                 self.hotels.append(value)
                             }
-                            self.collectionView.reloadData()
                         }
+                        self.isNetworkActivityIndicatorVisible = false
+                        self.collectionView.reloadData()
                     }
+                } else {
+                    self.isNetworkActivityIndicatorVisible = false
+                    self.collectionView.reloadData()
                 }
             }.resume()
         }
@@ -116,6 +122,35 @@ class HotelListViewController: UIViewController {
 extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let emptyView = UIView(frame: CGRect(x: collectionView.frame.minX, y: collectionView.frame.minY, width: collectionView.frame.width, height: collectionView.frame.height))
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        let label = UILabel()
+        label.text = "No Hotels"
+        label.textColor = .systemGray
+        label.font = label.font.withSize(30)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        if hotels.count == 0 {
+            collectionView.backgroundView = emptyView
+            if isNetworkActivityIndicatorVisible {
+                label.removeFromSuperview()
+                emptyView.addSubview(activityIndicator)
+                activityIndicator.startAnimating()
+                activityIndicator.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+                activityIndicator.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+            } else {
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
+                emptyView.addSubview(label)
+                label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+                label.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+            }
+        } else {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+            label.removeFromSuperview()
+            collectionView.backgroundView = nil
+        }
         return hotels.count
     }
     
