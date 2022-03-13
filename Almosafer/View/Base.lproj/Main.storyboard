@@ -144,7 +144,6 @@
                                             <outlet property="reviewCount" destination="P45-hH-CWv" id="dwh-aN-ekc"/>
                                             <outlet property="reviewScore" destination="xF3-xl-shs" id="53d-Pr-pQf"/>
                                             <outlet property="reviewScoreDescription" destination="KNl-gW-MzH" id="tcv-lI-2Xl"/>
-                                            <outlet property="reviewStack" destination="Z5C-cV-QbN" id="nUQ-6r-d6y"/>
                                             <outlet property="title" destination="WNU-Ac-fyI" id="ST7-Yh-V1t"/>
                                         </connections>
                                     </collectionViewCell>

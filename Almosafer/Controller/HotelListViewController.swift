@@ -19,6 +19,7 @@ class HotelListViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     var isHotelsFiltered: Bool { searchController.isActive && !searchController.searchBar.text!.isEmpty }
     let refreshControl = UIRefreshControl()
+    var sortedBy = SortBy.None
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,7 @@ class HotelListViewController: UIViewController {
                         }
                         self.refreshControl.endRefreshing()
                         self.isNetworkActivityIndicatorVisible = false
-                        self.collectionView.reloadData()
+                        self.sortHotels(by: self.sortedBy)
                     }
                 } else {
                     self.refreshControl.endRefreshing()
@@ -121,25 +122,54 @@ class HotelListViewController: UIViewController {
     
     func sortHotels(by sortOption: SortBy) {
         switch sortOption {
+        case .None:
+            break
         case .Recommended:
-            hotels.sort(by: { $0.priorityScore > $1.priorityScore })
+            if isHotelsFiltered {
+                filteredHotels.sort(by: { $0.priorityScore > $1.priorityScore })
+            } else {
+                hotels.sort(by: { $0.priorityScore > $1.priorityScore })
+            }
         case .LowestPrice:
-            hotels.sort(by: {
-                if let firstElementPrice = $0.price {
-                    if let secondElementPrice = $1.price {
-                        return firstElementPrice < secondElementPrice
+            if isHotelsFiltered {
+                filteredHotels.sort(by: {
+                    if let firstElementPrice = $0.price {
+                        if let secondElementPrice = $1.price {
+                            return firstElementPrice < secondElementPrice
+                        } else {
+                            return true
+                        }
                     } else {
-                        return true
+                        return false
                     }
-                } else {
-                    return false
-                }
-            })
+                })
+            } else {
+                hotels.sort(by: {
+                    if let firstElementPrice = $0.price {
+                        if let secondElementPrice = $1.price {
+                            return firstElementPrice < secondElementPrice
+                        } else {
+                            return true
+                        }
+                    } else {
+                        return false
+                    }
+                })
+            }
         case .StarRating:
-            hotels.sort(by: { $0.starRating ?? 0 > $1.starRating ?? 0 })
+            if isHotelsFiltered {
+                filteredHotels.sort(by: { $0.starRating ?? 0 > $1.starRating ?? 0 })
+            } else {
+                hotels.sort(by: { $0.starRating ?? 0 > $1.starRating ?? 0 })
+            }
         case .Distance:
-            hotels.sort(by: { $0.distanceInMeters < $1.distanceInMeters })
+            if isHotelsFiltered {
+                filteredHotels.sort(by: { $0.distanceInMeters < $1.distanceInMeters })
+            } else {
+                hotels.sort(by: { $0.distanceInMeters < $1.distanceInMeters })
+            }
         }
+        sortedBy = sortOption
         collectionView.reloadData()
     }
     
@@ -248,8 +278,8 @@ extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelega
     
 }
 
-enum SortBy {
-    case Recommended, LowestPrice, StarRating, Distance
+enum SortBy: Codable {
+    case None, Recommended, LowestPrice, StarRating, Distance
 }
 
 func setUpShadow(for view: UIView) {

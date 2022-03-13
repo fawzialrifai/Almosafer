@@ -16,7 +16,6 @@ class HotelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var reviewScore: LabelWithPadding!
     @IBOutlet weak var reviewScoreDescription: UILabel!
     @IBOutlet weak var reviewCount: UILabel!
-    @IBOutlet weak var reviewStack: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
