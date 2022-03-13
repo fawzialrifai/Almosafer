@@ -18,12 +18,14 @@ class HotelListViewController: UIViewController {
     var isNetworkActivityIndicatorVisible = false
     let searchController = UISearchController(searchResultsController: nil)
     var isHotelsFiltered: Bool { searchController.isActive && !searchController.searchBar.text!.isEmpty }
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeNavigationBarAppearance()
         fixDividerWidth()
         setUpSearchBar()
+        setUpRefreshControl()
         setUpShadow(for: buttonStackView)
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         navigationItem.backButtonTitle = NSLocalizedString("Search Results", comment: "")
@@ -42,6 +44,36 @@ class HotelListViewController: UIViewController {
                         self.collectionView.reloadData()
                     }
                 } else {
+                    self.isNetworkActivityIndicatorVisible = false
+                    self.collectionView.reloadData()
+                }
+            }.resume()
+        }
+    }
+    
+    func setUpRefreshControl() {
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshHotelData), for: .valueChanged)
+    }
+    
+    @objc func refreshHotelData() {
+        if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
+            isNetworkActivityIndicatorVisible = true
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        if let jsonHotels = try? JSONDecoder().decode(Hotels.self, from: data) {
+                            self.hotels.removeAll()
+                            for (_, value) in jsonHotels.hotels {
+                                self.hotels.append(value)
+                            }
+                        }
+                        self.refreshControl.endRefreshing()
+                        self.isNetworkActivityIndicatorVisible = false
+                        self.collectionView.reloadData()
+                    }
+                } else {
+                    self.refreshControl.endRefreshing()
                     self.isNetworkActivityIndicatorVisible = false
                     self.collectionView.reloadData()
                 }
