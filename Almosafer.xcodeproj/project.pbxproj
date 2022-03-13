@@ -26,6 +26,7 @@
 		5867AE2527DBD97300A9B18B /* Hotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5867AE2227DBD97300A9B18B /* Hotels.swift */; };
 		5867AE5927DD092900A9B18B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5867AE5B27DD092900A9B18B /* Localizable.strings */; };
 		5867AE5F27DD2AE100A9B18B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5867AE6127DD2AE100A9B18B /* InfoPlist.strings */; };
+		586FB67827DE570D00434837 /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586FB67727DE570D00434837 /* LabelWithPadding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		5867AE5C27DD092C00A9B18B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5867AE6027DD2AE100A9B18B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5867AE6227DD2AE500A9B18B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		586FB67727DE570D00434837 /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			children = (
 				5825D63B27DA2009005A4F13 /* Main.storyboard */,
 				5867AE1827DB6B1F00A9B18B /* HotelCollectionViewCell.swift */,
+				586FB67727DE570D00434837 /* LabelWithPadding.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				5825D63A27DA2009005A4F13 /* HotelListViewController.swift in Sources */,
 				5867AE2327DBD97300A9B18B /* Hotels.swift in Sources */,
 				5825D63627DA2009005A4F13 /* AppDelegate.swift in Sources */,
+				586FB67827DE570D00434837 /* LabelWithPadding.swift in Sources */,
 				5825D63827DA2009005A4F13 /* SceneDelegate.swift in Sources */,
 				5867AE1B27DBA19100A9B18B /* MapViewController.swift in Sources */,
 				5867AE1927DB6B1F00A9B18B /* HotelCollectionViewCell.swift in Sources */,

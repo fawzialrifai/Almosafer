@@ -13,7 +13,7 @@ class HotelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var address: UILabel!
-    @IBOutlet weak var reviewScore: UILabel!
+    @IBOutlet weak var reviewScore: LabelWithPadding!
     @IBOutlet weak var reviewScoreDescription: UILabel!
     @IBOutlet weak var reviewCount: UILabel!
     @IBOutlet weak var reviewStack: UIView!
@@ -24,7 +24,14 @@ class HotelCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
         setUpShadow(for: self)
+        customizeScoreLabel()
         layoutIfNeeded()
+    }
+    
+    func customizeScoreLabel() {
+        reviewScore.padding = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        reviewScore.layer.cornerRadius = 4
+        reviewScore.layer.masksToBounds = true
     }
     
 }

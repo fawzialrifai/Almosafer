@@ -72,10 +72,11 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z5C-cV-QbN">
                                                             <rect key="frame" x="0.0" y="0.0" width="160.5" height="13.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF3-xl-shs">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF3-xl-shs" customClass="LabelWithPadding" customModule="Almosafer" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="17" height="13.5"/>
+                                                                    <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                                    <color key="textColor" systemColor="systemGreenColor"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Very Good" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNl-gW-MzH">
@@ -91,9 +92,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="13.5" id="7CT-mv-19b"/>
-                                                            </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="7hv-6V-k3X">
                                                             <rect key="frame" x="0.0" y="21.5" width="164" height="13.5"/>
