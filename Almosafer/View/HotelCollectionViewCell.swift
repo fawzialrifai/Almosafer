@@ -18,4 +18,16 @@ class HotelCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var reviewCount: UILabel!
     @IBOutlet weak var reviewStack: UIView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundColor = UIColor.secondarySystemGroupedBackground
+        layer.cornerRadius = 8
+        contentView.layer.cornerRadius = 8
+        layer.masksToBounds = false
+        layer.shadowOffset = CGSize.zero
+        layer.shadowRadius = 1
+        layer.shadowOpacity = 0.5
+        layoutIfNeeded()
+    }
+    
 }

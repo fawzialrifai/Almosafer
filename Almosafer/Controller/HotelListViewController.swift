@@ -194,8 +194,6 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Hotel Cell", for: indexPath as IndexPath) as! HotelCollectionViewCell
         cell.tag = indexPath.row
-        cell.backgroundColor = UIColor.secondarySystemGroupedBackground
-        cell.layer.cornerRadius = 8
         let hotel = isHotelsFiltered ? filteredHotels[indexPath.row] : hotels[indexPath.row]
         cell.title.attributedText = hotel.attributedName
         if hotel.downloaded == true {
@@ -223,7 +221,6 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         } else {
             cell.reviewStack.isHidden = true
         }
-        cell.layoutIfNeeded()
         return cell
     }
     
