@@ -14,6 +14,7 @@ enum SortBy {
 class HotelListViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var dividerWidth: NSLayoutConstraint!
     
     var hotels = [Hotel]()
     var filteredHotels = [Hotel]()
@@ -24,8 +25,11 @@ class HotelListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         customizeNavigationBarAppearance()
+        fixDividerWidth()
         setUpSearchBar()
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
+        navigationItem.backButtonTitle = "Search Results"
+        navigationItem.backButtonDisplayMode = .minimal
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             isNetworkActivityIndicatorVisible = true
             URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -45,6 +49,10 @@ class HotelListViewController: UIViewController {
                 }
             }.resume()
         }
+    }
+    
+    func fixDividerWidth() {
+        dividerWidth.constant = 1 / UIScreen.main.scale
     }
     
     func downloadImage(for hotel: Hotel, completionHandler: @escaping ((UIImage?) -> Void)) {

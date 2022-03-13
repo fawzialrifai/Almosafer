@@ -209,6 +209,7 @@
                     <navigationItem key="navigationItem" id="s3q-vp-d0V"/>
                     <connections>
                         <outlet property="collectionView" destination="E1g-0q-pwo" id="aTG-bK-LJ6"/>
+                        <outlet property="dividerWidth" destination="d5I-SH-Ln9" id="BAq-J4-Wv8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RC5-Uc-Cck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
