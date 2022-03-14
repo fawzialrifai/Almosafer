@@ -47,7 +47,7 @@ class HotelListViewController: UIViewController {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data {
                     DispatchQueue.main.async {
-                        if let jsonHotels = try? JSONDecoder().decode(Hotels.self, from: data) {
+                        if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: data) {
                             self.hotels.removeAll()
                             for (_, value) in jsonHotels.hotels {
                                 self.hotels.append(value)
@@ -80,7 +80,7 @@ class HotelListViewController: UIViewController {
                 if let data = data {
                     DispatchQueue.main.async {
                         hotel.imageData = data
-                        hotel.downloaded = true
+                        hotel.isImageDownloaded = true
                         completionHandler(UIImage(data: data))
                     }
                 }
@@ -226,7 +226,7 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.tag = indexPath.row
         let hotel = isHotelsFiltered ? filteredHotels[indexPath.row] : hotels[indexPath.row]
         cell.title.attributedText = hotel.attributedName
-        if hotel.downloaded == true {
+        if hotel.isImageDownloaded == true {
             cell.imageView.image = UIImage(data: hotel.imageData!)
         } else {
             cell.imageView.image = nil
@@ -236,12 +236,12 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
                 }
             }
         }
-        cell.price.text = hotel.priceWithCurrency
-        cell.address.text = hotel.address[Locale.current.languageCode!] as? String
+        cell.price.text = hotel.priceWithCurrencyCode
+        cell.address.text = hotel.address[languageCode] as? String
         if let hotelReview = hotel.review {
             cell.reviewScore.text = "\(hotelReview.score)"
             cell.reviewScore.backgroundColor = UIColor(hex: hotelReview.scoreColor)
-            cell.reviewScoreDescription.text = hotelReview.scoreDescription[Locale.current.languageCode!]
+            cell.reviewScoreDescription.text = hotelReview.scoreDescription[languageCode]
             cell.reviewScoreDescription.textColor = UIColor(hex: hotelReview.scoreColor)
             cell.reviewCount.text = String(format: NSLocalizedString("%d reviews", comment: ""), hotelReview.count)
         } else {
@@ -276,14 +276,10 @@ extension HotelListViewController: UISearchControllerDelegate, UISearchBarDelega
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        filteredHotels = hotels.filter { $0.name[Locale.current.languageCode!]!.lowercased().contains(searchController.searchBar.text!.lowercased()) }
+        filteredHotels = hotels.filter { $0.name[languageCode]!.lowercased().contains(searchController.searchBar.text!.lowercased()) }
         collectionView.reloadData()
     }
     
-}
-
-enum SortBy: Codable {
-    case None, Recommended, LowestPrice, StarRating, Distance
 }
 
 func setUpShadow(for view: UIView) {
@@ -312,5 +308,15 @@ extension UIColor {
             }
         }
         return nil
+    }
+}
+
+var languageCode: String {
+    get {
+        if let languageCode = Locale.current.languageCode {
+            return languageCode
+        } else {
+            return "en"
+        }
     }
 }

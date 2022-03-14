@@ -8,85 +8,88 @@
 import Foundation
 import MapKit
 
-class Hotel: NSObject, Codable, MKAnnotation {
-    let name: [String: String]
-    let thumbnailUrl: String
-    let starRating: Int?
+class Hotel: NSObject, Codable {
     let price: Int?
-    let address: [String: String?]
-    let review: Review?
-    let priorityScore: Double
-    let distanceInMeters: Double
+    let name: [String: String]
+    let starRating: Int?
+    let thumbnailUrl: String
     let latitude: Double
     let longitude: Double
+    let distanceInMeters: Double
+    let address: [String: String?]
+    let priorityScore: Double
+    let review: Review?
     var imageData: Data?
-    var downloaded: Bool?
+    var isImageDownloaded: Bool?
     
-    var title: String? {
-        get { name[Locale.current.languageCode!] }
+    init(
+        price: Int,
+        name: [String: String],
+        starRating: Int,
+        thumbnailUrl: String,
+        latitude: Double,
+        longitude: Double,
+        distanceInMeters: Double,
+        address: [String: String],
+        priorityScore: Double,
+        review: Review
+    ) {
+        self.price = price
+        self.name = name
+        self.starRating = starRating
+        self.thumbnailUrl = thumbnailUrl
+        self.latitude = latitude
+        self.longitude = longitude
+        self.distanceInMeters = distanceInMeters
+        self.address = address
+        self.priorityScore = priorityScore
+        self.review = review
     }
-    var subtitle: String? {
-        get { priceWithCurrency }
-    }
-    var coordinate: CLLocationCoordinate2D {
-        get { CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
-    }
+    
+}
+
+extension Hotel {
+    
     var attributedName: NSAttributedString {
         get {
-            let title = "\(name[Locale.current.languageCode!]!) \(ratingString)"
-            let range = (title as NSString).range(of: ratingString)
-            let mutableAttributedString = NSMutableAttributedString.init(string: title)
-            mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
-            return mutableAttributedString
-        }
-    }
-    var ratingString: String {
-        get {
-            let ratingNumber: Int = starRating ?? 0
+            let ratingNumber = starRating ?? 0
             var ratingString = ""
             for _ in 0..<ratingNumber {
                 ratingString.append("★")
             }
-            return ratingString
+            let title = "\(name[languageCode] ?? "") \(ratingString)"
+            let range = (title as NSString).range(of: ratingString)
+            let attributedName = NSMutableAttributedString.init(string: title)
+            attributedName.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
+            return attributedName
         }
     }
-    var priceWithCurrency: String {
+    var priceWithCurrencyCode: String {
         if let price = price {
-            return String(format: NSLocalizedString("AED %d", comment: ""), price)
+            return String(format: NSLocalizedString("AED %d", comment: "The currency code"), price)
         } else {
             return ""
         }
     }
-    
-    init(
-        name: [String: String],
-        thumbnailUrl: String,
-        starRating: Int,
-        price: Int,
-        address: [String: String],
-        priorityScore: Double,
-        review: Review,
-        distanceInMeters: Double,
-        latitude: Double,
-        longitude: Double
-    ) {
-        self.name = name
-        self.thumbnailUrl = thumbnailUrl
-        self.starRating = starRating
-        self.price = price
-        self.address = address
-        self.review = review
-        self.priorityScore = priorityScore
-        self.distanceInMeters = distanceInMeters
-        self.latitude = latitude
-        self.longitude = longitude
-    }
-    
     struct Review: Codable {
         let count: Int
         let score: Double
         let scoreDescription: [String: String]
         let scoreColor: String
+    }
+    
+}
+
+extension Hotel: MKAnnotation {
+    
+    var title: String? {
+        get { name[languageCode] }
+    }
+    var subtitle: String? {
+        get { priceWithCurrencyCode }
+    }
+    var coordinate: CLLocationCoordinate2D {
+        get { CLLocationCoordinate2D(latitude: latitude, longitude: longitude) }
     }
     
 }

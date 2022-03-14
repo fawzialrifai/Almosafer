@@ -11,11 +11,11 @@ class HotelCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var price: UILabel!
-    @IBOutlet weak var address: UILabel!
     @IBOutlet weak var reviewScore: LabelWithPadding!
     @IBOutlet weak var reviewScoreDescription: UILabel!
     @IBOutlet weak var reviewCount: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var price: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
