@@ -15,7 +15,6 @@ class HotelListViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     let refreshControl = UIRefreshControl()
-    var emptyDataSetView = UIView()
     var hotelStore = HotelStore(hotels: [:], hotelArray: [], filteredHotelArray: [])
     var isHotelsFiltered: Bool {
         if let searchBarText = searchController.searchBar.text {
@@ -64,44 +63,48 @@ class HotelListViewController: UIViewController {
         refreshControl.beginRefreshing()
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             hotelStore.isDownloadingHotels = true
-            collectionView.reloadData()
             URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let data = data {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if let data = data {
                         if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: data) {
                             self.hotelStore.hotelArray?.removeAll()
                             for (_, value) in jsonHotels.hotels {
                                 self.hotelStore.hotelArray?.append(value)
                             }
                         }
-                        DispatchQueue.main.async {
-                            if self.hotelStore.hotelArray?.count == 0 {
-                                self.addEmptyDataSetView()
-                            } else {
-                                self.removeEmptyDataSetView()
-                            }
-                            self.refreshControl.endRefreshing()
-                            self.hotelStore.isDownloadingHotels = false
-                            self.hotelStore.sortHotels(by: self.hotelStore.sortedBy!)
-                            self.collectionView.reloadData()
-                        }
+                    } else {
+                        self.addEmptyDataSetViewWithText("No Hotels")
                     }
-                } else {
-                    DispatchQueue.main.async {
-                        self.addEmptyDataSetView()
-                        self.refreshControl.endRefreshing()
-                        self.hotelStore.isDownloadingHotels = false
-                        self.collectionView.reloadData()
-                    }
+                    self.refreshControl.endRefreshing()
+                    self.hotelStore.isDownloadingHotels = false
+                    self.hotelStore.sortHotels(by: self.hotelStore.sortedBy!)
+                    self.reloadCollectionView()
                 }
             }.resume()
         }
     }
     
-    func addEmptyDataSetView() {
-        emptyDataSetView = UIView(frame: CGRect(x: self.collectionView.frame.minX, y: self.collectionView.frame.minY, width: self.collectionView.frame.width, height: self.collectionView.frame.height))
+    func reloadCollectionView() {
+        if isHotelsFiltered {
+            if hotelStore.filteredHotelArray?.count == 0 {
+                addEmptyDataSetViewWithText(NSLocalizedString("No Results", comment: ""))
+            } else {
+                removeEmptyDataSetView()
+            }
+        } else {
+            if hotelStore.hotelArray?.count == 0 {
+                addEmptyDataSetViewWithText(NSLocalizedString("No Hotels", comment: ""))
+            } else {
+                removeEmptyDataSetView()
+            }
+        }
+        collectionView.reloadData()
+    }
+    
+    func addEmptyDataSetViewWithText(_ text: String) {
+        let emptyDataSetView = UIView(frame: CGRect(x: self.collectionView.frame.minX, y: self.collectionView.frame.minY, width: self.collectionView.frame.width, height: self.collectionView.frame.height))
         let label = UILabel()
-        label.text = "No Hotels"
+        label.text = text
         label.textColor = .systemGray
         label.font = label.font.withSize(30)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -115,30 +118,30 @@ class HotelListViewController: UIViewController {
         collectionView.backgroundView = nil
     }
     
-    @IBAction func showMap() {
+    @IBAction func pushMapViewController() {
         if let mapViewController = storyboard?.instantiateViewController(withIdentifier: "Map") as? MapViewController {
             mapViewController.hotelArray = hotelStore.hotelArray
             navigationController?.pushViewController(mapViewController, animated: true)
         }
     }
     
-    @IBAction func showSortOptions() {
+    @IBAction func presentSortOptions() {
         let alertController = UIAlertController(title: NSLocalizedString("Sort By:", comment: ""), message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Recommended", comment: ""), style: .default, handler: { action in
             self.hotelStore.sortHotels(by: .Recommended)
-            self.collectionView.reloadData()
+            self.reloadCollectionView()
         }))
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Lowest Price", comment: ""), style: .default, handler: { action in
             self.hotelStore.sortHotels(by: .LowestPrice)
-            self.collectionView.reloadData()
+            self.reloadCollectionView()
         }))
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Star Rating", comment: ""), style: .default, handler: { action in
             self.hotelStore.sortHotels(by: .StarRating)
-            self.collectionView.reloadData()
+            self.reloadCollectionView()
         }))
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Distance", comment: ""), style: .default, handler: { action in
             self.hotelStore.sortHotels(by: .Distance)
-            self.collectionView.reloadData()
+            self.reloadCollectionView()
         }))
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
         present(alertController, animated: true)
@@ -199,7 +202,7 @@ extension HotelListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchBarText = searchController.searchBar.text {
             hotelStore.filterHotelsForSearchBarText(searchBarText)
-            collectionView.reloadData()
+            reloadCollectionView()
         }
     }
     
