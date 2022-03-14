@@ -39,7 +39,9 @@ extension MapViewController: MKMapViewDelegate {
         } else {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView.canShowCallout = true
-            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            let rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            rightCalloutAccessoryView.tintColor = UIColor(named: "ButtonColor")
+            annotationView.rightCalloutAccessoryView = rightCalloutAccessoryView
         }
         return annotationView
     }

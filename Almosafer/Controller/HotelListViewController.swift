@@ -15,6 +15,7 @@ class HotelListViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     let refreshControl = UIRefreshControl()
+    var isConnected = false
     var hotelStore = HotelStore(hotels: [:], hotelArray: [], filteredHotelArray: [])
     var isHotelsFiltered: Bool {
         if let searchBarText = searchController.searchBar.text {
@@ -66,6 +67,7 @@ class HotelListViewController: UIViewController {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 DispatchQueue.main.async {
                     if let data = data {
+                        self.isConnected = true
                         if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: data) {
                             self.hotelStore.hotelArray?.removeAll()
                             for (_, value) in jsonHotels.hotels {
@@ -73,7 +75,8 @@ class HotelListViewController: UIViewController {
                             }
                         }
                     } else {
-                        self.addEmptyDataSetViewWithText("No Hotels")
+                        self.isConnected = false
+                        self.addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
                     }
                     self.refreshControl.endRefreshing()
                     self.hotelStore.isDownloadingHotels = false
@@ -85,17 +88,19 @@ class HotelListViewController: UIViewController {
     }
     
     func reloadCollectionView() {
-        if isHotelsFiltered {
-            if hotelStore.filteredHotelArray?.count == 0 {
-                addEmptyDataSetViewWithText(NSLocalizedString("No Results", comment: ""))
+        if isConnected {
+            if isHotelsFiltered {
+                if hotelStore.filteredHotelArray?.count == 0 {
+                    addEmptyDataSetViewWithText(NSLocalizedString("No Results", comment: ""))
+                } else {
+                    removeEmptyDataSetView()
+                }
             } else {
-                removeEmptyDataSetView()
-            }
-        } else {
-            if hotelStore.hotelArray?.count == 0 {
-                addEmptyDataSetViewWithText(NSLocalizedString("No Hotels", comment: ""))
-            } else {
-                removeEmptyDataSetView()
+                if hotelStore.hotelArray?.count == 0 {
+                    addEmptyDataSetViewWithText(NSLocalizedString("No Hotels", comment: ""))
+                } else {
+                    removeEmptyDataSetView()
+                }
             }
         }
         collectionView.reloadData()
@@ -104,14 +109,17 @@ class HotelListViewController: UIViewController {
     func addEmptyDataSetViewWithText(_ text: String) {
         let emptyDataSetView = UIView(frame: CGRect(x: self.collectionView.frame.minX, y: self.collectionView.frame.minY, width: self.collectionView.frame.width, height: self.collectionView.frame.height))
         let label = UILabel()
+        label.numberOfLines = 0
         label.text = text
         label.textColor = .systemGray
-        label.font = label.font.withSize(30)
+        label.textAlignment = .center
+        label.font = .preferredFont(forTextStyle: .body)
         label.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.backgroundView = emptyDataSetView
         emptyDataSetView.addSubview(label)
         label.centerXAnchor.constraint(equalTo: emptyDataSetView.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: emptyDataSetView.centerYAnchor).isActive = true
+        label.widthAnchor.constraint(equalTo: emptyDataSetView.widthAnchor, constant: -32).isActive = true
     }
     
     func removeEmptyDataSetView() {
