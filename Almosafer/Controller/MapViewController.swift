@@ -11,13 +11,13 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet private var mapView: MKMapView!
-    var hotels: [Hotel]!
+    var hotelArray: [Hotel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         setUpMapRegion()
-        mapView.addAnnotations(hotels)
+        mapView.addAnnotations(hotelArray)
     }
     
     func setUpMapRegion() {

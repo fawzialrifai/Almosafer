@@ -19,8 +19,15 @@ class Hotel: NSObject, Codable {
     let address: [String: String?]
     let priorityScore: Double
     let review: Review?
-    var imageData: Data?
-    var isImageDownloaded: Bool?
+    var thumbnailData: Data?
+    var isThumbnailDownloaded: Bool?
+    
+    struct Review: Codable {
+        let count: Int
+        let score: Double
+        let scoreDescription: [String: String]
+        let scoreColor: String
+    }
     
     init(
         price: Int,
@@ -46,23 +53,35 @@ class Hotel: NSObject, Codable {
         self.review = review
     }
     
+    func downloadThumbnail(completionHandler: @escaping ((UIImage?) -> Void)) {
+        if let url = URL(string: thumbnailUrl) {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        self.thumbnailData = data
+                        self.isThumbnailDownloaded = true
+                        completionHandler(UIImage(data: data))
+                    }
+                }
+            }.resume()
+        }
+    }
+    
 }
 
 extension Hotel {
     
     var attributedName: NSAttributedString {
-        get {
-            let ratingNumber = starRating ?? 0
-            var ratingString = ""
-            for _ in 0..<ratingNumber {
-                ratingString.append("★")
-            }
-            let title = "\(name[languageCode] ?? "") \(ratingString)"
-            let range = (title as NSString).range(of: ratingString)
-            let attributedName = NSMutableAttributedString.init(string: title)
-            attributedName.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
-            return attributedName
+        let ratingNumber = starRating ?? 0
+        var ratingString = ""
+        for _ in 0..<ratingNumber {
+            ratingString.append("★")
         }
+        let title = "\(name[languageCode] ?? "") \(ratingString)"
+        let range = (title as NSString).range(of: ratingString)
+        let attributedName = NSMutableAttributedString.init(string: title)
+        attributedName.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
+        return attributedName
     }
     var priceWithCurrencyCode: String {
         if let price = price {
@@ -71,11 +90,15 @@ extension Hotel {
             return ""
         }
     }
-    struct Review: Codable {
-        let count: Int
-        let score: Double
-        let scoreDescription: [String: String]
-        let scoreColor: String
+    var thumbnail: UIImage? {
+        if let thumbnailData = thumbnailData, isThumbnailDownloaded == true {
+            return UIImage(data: thumbnailData)
+        } else {
+            return nil
+        }
+    }
+    var localizedAddress: String {
+        (address[languageCode] ?? "") ?? ""
     }
     
 }

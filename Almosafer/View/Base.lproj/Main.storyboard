@@ -213,7 +213,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="s3q-vp-d0V"/>
                     <connections>
-                        <outlet property="buttonStackView" destination="BJg-dE-Xd1" id="Zw1-9W-pHo"/>
+                        <outlet property="buttonsView" destination="BJg-dE-Xd1" id="Zw1-9W-pHo"/>
                         <outlet property="collectionView" destination="E1g-0q-pwo" id="aTG-bK-LJ6"/>
                         <outlet property="dividerWidth" destination="vMu-N4-n8s" id="qhv-t7-CoX"/>
                     </connections>

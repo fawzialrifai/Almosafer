@@ -22,7 +22,7 @@ class HotelCollectionViewCell: UICollectionViewCell {
         backgroundColor = UIColor.secondarySystemGroupedBackground
         layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
-        setUpShadow(for: self)
+        addShadow(to: self)
         customizeScoreLabel()
         layoutIfNeeded()
     }
