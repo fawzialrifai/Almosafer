@@ -53,14 +53,18 @@ class HotelListViewController: UIViewController {
                                 self.hotels.append(value)
                             }
                         }
-                        self.refreshControl.endRefreshing()
-                        self.isNetworkActivityIndicatorVisible = false
-                        self.sortHotels(by: self.sortedBy)
+                        DispatchQueue.main.async {
+                            self.refreshControl.endRefreshing()
+                            self.isNetworkActivityIndicatorVisible = false
+                            self.sortHotels(by: self.sortedBy)
+                        }
                     }
                 } else {
-                    self.refreshControl.endRefreshing()
-                    self.isNetworkActivityIndicatorVisible = false
-                    self.collectionView.reloadData()
+                    DispatchQueue.main.async {
+                        self.refreshControl.endRefreshing()
+                        self.isNetworkActivityIndicatorVisible = false
+                        self.collectionView.reloadData()
+                    }
                 }
             }.resume()
         }
