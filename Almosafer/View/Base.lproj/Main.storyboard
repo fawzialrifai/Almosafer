@@ -153,61 +153,69 @@
                                     <outlet property="delegate" destination="4Mk-fP-s2N" id="DlE-WL-Ehq"/>
                                 </connections>
                             </collectionView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w0-S1-6NN">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJg-dE-Xd1">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Id-WC-YQr">
-                                        <rect key="frame" x="0.0" y="0.0" width="207" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsZ-DW-Oj0">
+                                        <rect key="frame" x="0.0" y="0.0" width="206.5" height="50"/>
                                         <color key="tintColor" name="ButtonColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Sort" image="arrow.up.arrow.down" catalog="system"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="arrow.up.arrow.down" catalog="system" title="Sort"/>
                                         <connections>
-                                            <action selector="showSortOptions" destination="4Mk-fP-s2N" eventType="touchUpInside" id="Cv6-kJ-BHS"/>
+                                            <action selector="showSortOptions" destination="4Mk-fP-s2N" eventType="touchUpInside" id="584-nl-9KT"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5RW-Bn-aF9">
-                                        <rect key="frame" x="207" y="0.0" width="1" height="50"/>
-                                        <color key="backgroundColor" systemColor="separatorColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="QjO-Ep-6V1"/>
-                                            <constraint firstAttribute="width" constant="1" id="d5I-SH-Ln9"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SFg-2z-cnZ">
-                                        <rect key="frame" x="208" y="0.0" width="206" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5FT-Fv-HpH">
+                                        <rect key="frame" x="207.5" y="0.0" width="206.5" height="50"/>
                                         <color key="tintColor" name="ButtonColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Map" image="map" catalog="system"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="map" catalog="system" title="Map"/>
                                         <connections>
-                                            <action selector="showMap" destination="4Mk-fP-s2N" eventType="touchUpInside" id="1Ha-fw-51b"/>
+                                            <action selector="showMap" destination="4Mk-fP-s2N" eventType="touchUpInside" id="Pb5-UP-2Er"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kl-UF-JsJ">
+                                        <rect key="frame" x="206.5" y="0.0" width="1" height="50"/>
+                                        <color key="backgroundColor" systemColor="separatorColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="1" id="vMu-N4-n8s"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ZAa-9R-BGC"/>
+                                    <constraint firstItem="1kl-UF-JsJ" firstAttribute="centerX" secondItem="BJg-dE-Xd1" secondAttribute="centerX" id="8hG-89-lUs"/>
+                                    <constraint firstItem="1kl-UF-JsJ" firstAttribute="leading" secondItem="hsZ-DW-Oj0" secondAttribute="trailing" id="BnA-bW-yBl"/>
+                                    <constraint firstItem="5FT-Fv-HpH" firstAttribute="leading" secondItem="1kl-UF-JsJ" secondAttribute="trailing" id="CFQ-ox-cjP"/>
+                                    <constraint firstItem="5FT-Fv-HpH" firstAttribute="top" secondItem="BJg-dE-Xd1" secondAttribute="top" id="KmQ-8g-wt0"/>
+                                    <constraint firstAttribute="bottom" secondItem="1kl-UF-JsJ" secondAttribute="bottom" id="OQ1-Qv-37b"/>
+                                    <constraint firstAttribute="height" constant="50" id="UzG-Le-NvF"/>
+                                    <constraint firstAttribute="bottom" secondItem="hsZ-DW-Oj0" secondAttribute="bottom" id="Zet-lu-FED"/>
+                                    <constraint firstItem="1kl-UF-JsJ" firstAttribute="top" secondItem="BJg-dE-Xd1" secondAttribute="top" id="cL8-j8-Ifi"/>
+                                    <constraint firstAttribute="bottom" secondItem="5FT-Fv-HpH" secondAttribute="bottom" id="jRq-qj-6Om"/>
+                                    <constraint firstItem="hsZ-DW-Oj0" firstAttribute="top" secondItem="BJg-dE-Xd1" secondAttribute="top" id="ndH-lK-C41"/>
+                                    <constraint firstItem="hsZ-DW-Oj0" firstAttribute="leading" secondItem="BJg-dE-Xd1" secondAttribute="leading" id="qpL-eD-EZo"/>
+                                    <constraint firstAttribute="trailing" secondItem="5FT-Fv-HpH" secondAttribute="trailing" id="xKj-h7-yh5"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xxc-Ea-9Xa"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="BJg-dE-Xd1" firstAttribute="trailing" secondItem="ypL-MC-jlI" secondAttribute="trailing" id="2CG-36-Byx"/>
                             <constraint firstAttribute="bottom" secondItem="E1g-0q-pwo" secondAttribute="bottom" id="5dp-KR-LYy"/>
-                            <constraint firstItem="E1g-0q-pwo" firstAttribute="top" secondItem="9w0-S1-6NN" secondAttribute="bottom" id="Mvb-Mx-BTl"/>
-                            <constraint firstItem="9w0-S1-6NN" firstAttribute="trailing" secondItem="ypL-MC-jlI" secondAttribute="trailing" id="OxE-aB-RAp"/>
+                            <constraint firstItem="BJg-dE-Xd1" firstAttribute="top" secondItem="xxc-Ea-9Xa" secondAttribute="top" id="Fng-UF-ncK"/>
                             <constraint firstItem="E1g-0q-pwo" firstAttribute="leading" secondItem="xxc-Ea-9Xa" secondAttribute="leading" id="PLn-M3-1rP"/>
-                            <constraint firstItem="9w0-S1-6NN" firstAttribute="top" secondItem="xxc-Ea-9Xa" secondAttribute="top" id="tdf-sC-M3a"/>
+                            <constraint firstItem="BJg-dE-Xd1" firstAttribute="leading" secondItem="ypL-MC-jlI" secondAttribute="leading" id="QlR-t5-mAZ"/>
+                            <constraint firstItem="E1g-0q-pwo" firstAttribute="top" secondItem="BJg-dE-Xd1" secondAttribute="bottom" id="hzY-g4-YY0"/>
                             <constraint firstItem="E1g-0q-pwo" firstAttribute="trailing" secondItem="xxc-Ea-9Xa" secondAttribute="trailing" id="vmj-Ls-hd7"/>
-                            <constraint firstItem="9w0-S1-6NN" firstAttribute="leading" secondItem="ypL-MC-jlI" secondAttribute="leading" id="yuw-fh-YW7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="s3q-vp-d0V"/>
                     <connections>
-                        <outlet property="buttonStackView" destination="9w0-S1-6NN" id="wVY-uo-SsC"/>
+                        <outlet property="buttonStackView" destination="BJg-dE-Xd1" id="Zw1-9W-pHo"/>
                         <outlet property="collectionView" destination="E1g-0q-pwo" id="aTG-bK-LJ6"/>
-                        <outlet property="dividerWidth" destination="d5I-SH-Ln9" id="BAq-J4-Wv8"/>
+                        <outlet property="dividerWidth" destination="vMu-N4-n8s" id="qhv-t7-CoX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RC5-Uc-Cck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
