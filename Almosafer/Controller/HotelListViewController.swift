@@ -91,7 +91,7 @@ class HotelListViewController: UIViewController {
     func addEmptyDataSetViewWithText(_ text: String) {
         let emptyDataSetView = UIView(frame: CGRect(x: collectionView.frame.minX, y: collectionView.frame.minY, width: collectionView.frame.width, height: collectionView.frame.height))
         let label = UILabel()
-        label.text = text
+        label.text = NSLocalizedString(text, comment: "")
         label.numberOfLines = 0
         label.textColor = .systemGray
         label.textAlignment = .center
@@ -112,13 +112,13 @@ class HotelListViewController: UIViewController {
         if isConnected {
             if isHotelsFiltered {
                 if hotelStore.filteredHotelArray?.count == 0 {
-                    addEmptyDataSetViewWithText(NSLocalizedString("No Results", comment: ""))
+                    addEmptyDataSetViewWithText("No Results")
                 } else {
                     removeEmptyDataSetView()
                 }
             } else {
                 if hotelStore.hotelArray?.count == 0 {
-                    addEmptyDataSetViewWithText(NSLocalizedString("No Hotels", comment: ""))
+                    addEmptyDataSetViewWithText("No Hotels")
                 } else {
                     removeEmptyDataSetView()
                 }
