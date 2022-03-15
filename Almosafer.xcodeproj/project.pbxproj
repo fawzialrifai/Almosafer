@@ -27,6 +27,8 @@
 		5867AE5927DD092900A9B18B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5867AE5B27DD092900A9B18B /* Localizable.strings */; };
 		5867AE5F27DD2AE100A9B18B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5867AE6127DD2AE100A9B18B /* InfoPlist.strings */; };
 		586FB67827DE570D00434837 /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586FB67727DE570D00434837 /* LabelWithPadding.swift */; };
+		58DA7F3127E1393300B39CF4 /* ClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA7F3027E1393300B39CF4 /* ClusterAnnotationView.swift */; };
+		58DA7F3527E13AEF00B39CF4 /* HotelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA7F3427E13AEF00B39CF4 /* HotelAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		5867AE6027DD2AE100A9B18B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5867AE6227DD2AE500A9B18B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		586FB67727DE570D00434837 /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
+		58DA7F3027E1393300B39CF4 /* ClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterAnnotationView.swift; sourceTree = "<group>"; };
+		58DA7F3427E13AEF00B39CF4 /* HotelAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,8 @@
 				5825D63B27DA2009005A4F13 /* Main.storyboard */,
 				5867AE1827DB6B1F00A9B18B /* HotelCollectionViewCell.swift */,
 				586FB67727DE570D00434837 /* LabelWithPadding.swift */,
+				58DA7F3427E13AEF00B39CF4 /* HotelAnnotationView.swift */,
+				58DA7F3027E1393300B39CF4 /* ClusterAnnotationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -318,10 +324,12 @@
 				5825D63A27DA2009005A4F13 /* HotelListViewController.swift in Sources */,
 				5867AE2327DBD97300A9B18B /* HotelStore.swift in Sources */,
 				5825D63627DA2009005A4F13 /* AppDelegate.swift in Sources */,
+				58DA7F3527E13AEF00B39CF4 /* HotelAnnotationView.swift in Sources */,
 				586FB67827DE570D00434837 /* LabelWithPadding.swift in Sources */,
 				5825D63827DA2009005A4F13 /* SceneDelegate.swift in Sources */,
 				5867AE1B27DBA19100A9B18B /* MapViewController.swift in Sources */,
 				5867AE1927DB6B1F00A9B18B /* HotelCollectionViewCell.swift in Sources */,
+				58DA7F3127E1393300B39CF4 /* ClusterAnnotationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

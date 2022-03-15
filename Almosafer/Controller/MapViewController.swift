@@ -17,8 +17,13 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         setUpMapRegion()
+        registerAnnotationViewClasses()
         mapView.addAnnotations(hotelArray)
     }
+    
+}
+
+extension MapViewController: MKMapViewDelegate {
     
     func setUpMapRegion() {
         let location = CLLocation(latitude: 25.2048493, longitude: 55.2707828)
@@ -26,24 +31,9 @@ class MapViewController: UIViewController {
         mapView.setRegion(coordinateRegion, animated: false)
     }
     
-}
-
-extension MapViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "Hotel"
-        var annotationView: MKMarkerAnnotationView
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
-            dequeuedView.annotation = annotation
-            annotationView = dequeuedView
-        } else {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView.canShowCallout = true
-            let rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            rightCalloutAccessoryView.tintColor = UIColor(named: "ButtonColor")
-            annotationView.rightCalloutAccessoryView = rightCalloutAccessoryView
-        }
-        return annotationView
+    func registerAnnotationViewClasses() {
+        mapView.register(HotelAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        mapView.register(ClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
     }
     
 }
