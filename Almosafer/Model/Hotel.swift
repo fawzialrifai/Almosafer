@@ -71,6 +71,13 @@ class Hotel: NSObject, Codable {
 
 extension Hotel {
     
+    var priceWithCurrencyCode: String {
+        if let price = price {
+            return String(format: NSLocalizedString("AED %d", comment: "The currency code"), price)
+        } else {
+            return ""
+        }
+    }
     var attributedName: NSAttributedString {
         let ratingNumber = starRating ?? 0
         var ratingString = ""
@@ -82,13 +89,6 @@ extension Hotel {
         let attributedName = NSMutableAttributedString.init(string: title)
         attributedName.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
         return attributedName
-    }
-    var priceWithCurrencyCode: String {
-        if let price = price {
-            return String(format: NSLocalizedString("AED %d", comment: "The currency code"), price)
-        } else {
-            return ""
-        }
     }
     var thumbnail: UIImage? {
         if let thumbnailData = thumbnailData, isThumbnailDownloaded == true {

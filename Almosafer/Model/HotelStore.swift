@@ -15,6 +15,10 @@ struct HotelStore: Codable {
     var isRefreshingHotelsData: Bool?
     var sortedBy: SortBy? = .None
     
+}
+
+extension HotelStore {
+    
     mutating func parse(json: Data) {
         if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: json) {
             hotels = jsonHotels.hotels

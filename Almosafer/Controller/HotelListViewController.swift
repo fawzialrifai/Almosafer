@@ -82,6 +82,26 @@ class HotelListViewController: UIViewController {
         }
     }
     
+    func addEmptyDataSetViewWithText(_ text: String) {
+        let emptyDataSetView = UIView(frame: CGRect(x: collectionView.frame.minX, y: collectionView.frame.minY, width: collectionView.frame.width, height: collectionView.frame.height))
+        let label = UILabel()
+        label.text = text
+        label.numberOfLines = 0
+        label.textColor = .systemGray
+        label.textAlignment = .center
+        label.font = .preferredFont(forTextStyle: .body)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundView = emptyDataSetView
+        emptyDataSetView.addSubview(label)
+        label.centerXAnchor.constraint(equalTo: emptyDataSetView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: emptyDataSetView.centerYAnchor).isActive = true
+        label.widthAnchor.constraint(equalTo: emptyDataSetView.widthAnchor, constant: -32).isActive = true
+    }
+    
+    func removeEmptyDataSetView() {
+        collectionView.backgroundView = nil
+    }
+    
     func reloadCollectionView() {
         if isConnected {
             if isHotelsFiltered {
@@ -99,33 +119,6 @@ class HotelListViewController: UIViewController {
             }
         }
         collectionView.reloadData()
-    }
-    
-    func addEmptyDataSetViewWithText(_ text: String) {
-        let emptyDataSetView = UIView(frame: CGRect(x: self.collectionView.frame.minX, y: self.collectionView.frame.minY, width: self.collectionView.frame.width, height: self.collectionView.frame.height))
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.text = text
-        label.textColor = .systemGray
-        label.textAlignment = .center
-        label.font = .preferredFont(forTextStyle: .body)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        self.collectionView.backgroundView = emptyDataSetView
-        emptyDataSetView.addSubview(label)
-        label.centerXAnchor.constraint(equalTo: emptyDataSetView.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: emptyDataSetView.centerYAnchor).isActive = true
-        label.widthAnchor.constraint(equalTo: emptyDataSetView.widthAnchor, constant: -32).isActive = true
-    }
-    
-    func removeEmptyDataSetView() {
-        collectionView.backgroundView = nil
-    }
-    
-    @IBAction func pushMapViewController() {
-        if let mapViewController = storyboard?.instantiateViewController(withIdentifier: "Map") as? MapViewController {
-            mapViewController.hotelArray = hotelStore.hotelArray
-            navigationController?.pushViewController(mapViewController, animated: true)
-        }
     }
     
     @IBAction func presentSortOptions() {
@@ -148,6 +141,13 @@ class HotelListViewController: UIViewController {
         }))
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
         present(alertController, animated: true)
+    }
+    
+    @IBAction func pushMapViewController() {
+        if let mapViewController = storyboard?.instantiateViewController(withIdentifier: "Map") as? MapViewController {
+            mapViewController.hotelArray = hotelStore.hotelArray
+            navigationController?.pushViewController(mapViewController, animated: true)
+        }
     }
     
 }
