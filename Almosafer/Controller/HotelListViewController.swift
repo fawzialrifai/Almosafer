@@ -62,6 +62,7 @@ class HotelListViewController: UIViewController {
     }
     
     func setUpRefreshControl() {
+        refreshControl.tintColor = UIColor(named: "ButtonColor")
         collectionView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshHotelsData), for: .valueChanged)
     }
