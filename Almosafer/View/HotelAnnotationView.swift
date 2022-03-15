@@ -13,7 +13,7 @@ class HotelAnnotationView: MKMarkerAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         clusteringIdentifier = "Hotel"
-        markerTintColor = UIColor(named: "NavigationBarColor")
+        markerTintColor = UIColor(named: "AlmosaferColor")
         displayPriority = .defaultLow
         canShowCallout = true
         let rightCalloutAccessoryView = UIButton(type: .detailDisclosure)

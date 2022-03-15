@@ -17,10 +17,10 @@ class ClusterAnnotationView: MKAnnotationView {
                 let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
                 image = renderer.image { _ in
                     // Fill circle with color
-                    UIColor(named: "NavigationBarColor")?.setFill()
+                    UIColor(named: "AlmosaferColor")?.setFill()
                     UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).fill()
                     // Fill inner circle with white color
-                    UIColor(named: "NavigationBarColor")?.setFill()
+                    UIColor(named: "AlmosaferColor")?.setFill()
                     UIBezierPath(ovalIn: CGRect(x: 8, y: 8, width: 24, height: 24)).fill()
                     // Draw count text vertically and horizontally centered
                     let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white]
