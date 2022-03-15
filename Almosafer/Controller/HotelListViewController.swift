@@ -40,6 +40,7 @@ class HotelListViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        // fixes a retain cycle that happens when popping HotelListViewController from the navigation stack while the search controller is presented.
         searchController.dismiss(animated: false)
     }
     
