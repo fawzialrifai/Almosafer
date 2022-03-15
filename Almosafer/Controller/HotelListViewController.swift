@@ -42,7 +42,7 @@ class HotelListViewController: UIViewController {
         // customize navigation bar colors.
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(named: "AccentColor")
+        appearance.backgroundColor = UIColor(named: "NavigationBarColor")
         appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
