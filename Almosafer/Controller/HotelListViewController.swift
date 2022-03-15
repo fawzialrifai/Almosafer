@@ -38,6 +38,11 @@ class HotelListViewController: UIViewController {
         refreshHotelsData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchController.dismiss(animated: false)
+    }
+    
     func customizeNavigationBarAppearance() {
         // customize navigation bar colors.
         let appearance = UINavigationBarAppearance()
