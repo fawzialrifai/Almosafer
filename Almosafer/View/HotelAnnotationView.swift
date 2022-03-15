@@ -10,19 +10,16 @@ import MapKit
 
 class HotelAnnotationView: MKMarkerAnnotationView {
     
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        clusteringIdentifier = "Hotel"
-        markerTintColor = UIColor(named: "AlmosaferColor")
-        displayPriority = .defaultLow
-        canShowCallout = true
-        let rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        rightCalloutAccessoryView.tintColor = UIColor(named: "ButtonColor")
-        self.rightCalloutAccessoryView = rightCalloutAccessoryView
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override var annotation: MKAnnotation? {
+        willSet {
+            clusteringIdentifier = "Hotel"
+            markerTintColor = UIColor(named: "AlmosaferColor")
+            displayPriority = .defaultLow
+            canShowCallout = true
+            let rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            rightCalloutAccessoryView.tintColor = UIColor(named: "ButtonColor")
+            self.rightCalloutAccessoryView = rightCalloutAccessoryView
+        }
     }
     
 }
