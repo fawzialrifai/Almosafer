@@ -226,7 +226,7 @@ func addShadow(to view: UIView) {
 }
 
 extension UIColor {
-    public convenience init(hex: String) {
+    public convenience init?(hex: String) {
         let scanner = Scanner(string: String(hex.dropFirst()))
         var hexNumber: UInt64 = 0
         if scanner.scanHexInt64(&hexNumber) {
@@ -236,7 +236,7 @@ extension UIColor {
             self.init(red: red, green: green, blue: blue, alpha: 1)
             return
         }
-        self.init(cgColor: UIColor.secondaryLabel.cgColor)
+        self.init(named: "DefaultScoreColor")
     }
 }
 
