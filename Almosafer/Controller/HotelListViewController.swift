@@ -64,7 +64,7 @@ class HotelListViewController: UIViewController {
         refreshControl.beginRefreshing()
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             hotelStore.isRefreshingHotelsData = true
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
+            URLSession.shared.dataTask(with: url) { data,_,_  in
                 DispatchQueue.main.async {
                     if let data = data {
                         self.isConnected = true
