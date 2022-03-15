@@ -9,11 +9,21 @@ import Foundation
 
 struct HotelStore: Codable {
     
-    let hotels: [String: Hotel]
+    var hotels: [String: Hotel]
     var hotelArray: [Hotel]?
     var filteredHotelArray: [Hotel]?
-    var isDownloadingHotels: Bool?
+    var isRefreshingHotelsData: Bool?
     var sortedBy: SortBy? = .None
+    
+    mutating func parse(json: Data) {
+        if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: json) {
+            hotels = jsonHotels.hotels
+            hotelArray?.removeAll()
+            for (_, value) in hotels {
+                hotelArray?.append(value)
+            }
+        }
+    }
     
     mutating func sortHotels(by sortOption: SortBy) {
         switch sortOption {

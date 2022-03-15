@@ -63,24 +63,19 @@ class HotelListViewController: UIViewController {
     @objc func refreshHotelsData() {
         refreshControl.beginRefreshing()
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
-            hotelStore.isDownloadingHotels = true
+            hotelStore.isRefreshingHotelsData = true
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 DispatchQueue.main.async {
                     if let data = data {
                         self.isConnected = true
-                        if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: data) {
-                            self.hotelStore.hotelArray?.removeAll()
-                            for (_, value) in jsonHotels.hotels {
-                                self.hotelStore.hotelArray?.append(value)
-                            }
-                        }
+                        self.hotelStore.parse(json: data)
                     } else {
                         self.isConnected = false
                         self.addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
                     }
                     self.refreshControl.endRefreshing()
-                    self.hotelStore.isDownloadingHotels = false
-                    self.hotelStore.sortHotels(by: self.hotelStore.sortedBy!)
+                    self.hotelStore.isRefreshingHotelsData = false
+                    self.hotelStore.sortHotels(by: self.hotelStore.sortedBy ?? .None)
                     self.reloadCollectionView()
                 }
             }.resume()
