@@ -97,7 +97,7 @@ class HotelListViewController: UIViewController {
     }
     
     func reloadCollectionView() {
-        if isConnected {
+        if isConnectedToInternet {
             if isHotelsFiltered {
                 if hotelStore.filteredHotelArray.count == 0 {
                     addEmptyDataSetViewWithText("No Results")
@@ -239,4 +239,4 @@ var languageCode: String {
     }
 }
 
-var isConnected = false
+var isConnectedToInternet = false

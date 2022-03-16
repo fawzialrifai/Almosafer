@@ -29,10 +29,10 @@ extension HotelStore {
             isRefreshingHotelsData = true
             URLSession.shared.dataTask(with: url) { data, _, error  in
                 if let data = data {
-                    isConnected = true
+                    isConnectedToInternet = true
                     self.parseData(data: data)
                 } else {
-                    isConnected = false
+                    isConnectedToInternet = false
                 }
                 self.isRefreshingHotelsData = false
                 self.sortHotels(by: self.sortedBy)
