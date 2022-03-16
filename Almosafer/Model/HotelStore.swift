@@ -27,6 +27,7 @@ extension HotelStore {
     func getData(completionHandler: @escaping (() -> Void)) {
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             isRefreshingHotelsData = true
+            hotelArray.removeAll()
             URLSession.shared.dataTask(with: url) { data, _, error  in
                 if let data = data {
                     isConnectedToInternet = true
@@ -44,7 +45,6 @@ extension HotelStore {
     func parseData(data: Data) {
         if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: data) {
             hotels = jsonHotels.hotels
-            hotelArray.removeAll()
             for (_, value) in hotels {
                 hotelArray.append(value)
             }
