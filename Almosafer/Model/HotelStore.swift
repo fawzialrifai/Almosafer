@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HotelStore: Codable {
+class HotelStore: Codable {
     
     var hotels: [String: Hotel]
     var hotelArray = [Hotel]()
@@ -16,12 +16,30 @@ struct HotelStore: Codable {
     var sortedBy = SortBy.None
     enum CodingKeys: CodingKey { case hotels }
     
+    init(hotels: [String: Hotel]) {
+        self.hotels = hotels
+    }
+    
 }
 
 extension HotelStore {
     
-    mutating func parse(json: Data) {
-        if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: json) {
+    func getData(completionHandler: @escaping ((Error?) -> Void)) {
+        if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
+            isRefreshingHotelsData = true
+            URLSession.shared.dataTask(with: url) { data, _, error  in
+                if let data = data {
+                    self.parseData(data: data)
+                }
+                self.isRefreshingHotelsData = false
+                self.sortHotels(by: self.sortedBy)
+                completionHandler(error)
+            }.resume()
+        }
+    }
+    
+    func parseData(data: Data) {
+        if let jsonHotels = try? JSONDecoder().decode(HotelStore.self, from: data) {
             hotels = jsonHotels.hotels
             hotelArray.removeAll()
             for (_, value) in hotels {
@@ -30,7 +48,7 @@ extension HotelStore {
         }
     }
     
-    mutating func sortHotels(by sortOption: SortBy) {
+    func sortHotels(by sortOption: SortBy) {
         switch sortOption {
         case .None:
             break
@@ -70,7 +88,7 @@ extension HotelStore {
         sortedBy = sortOption
     }
     
-    mutating func filterHotelsForSearchBarText(_ searchBarText: String) {
+    func filterHotelsForSearchBarText(_ searchBarText: String) {
         filteredHotelArray = hotelArray.filter {
             if let hotelName = $0.name[languageCode] {
                 return hotelName.lowercased().contains(searchBarText.lowercased())

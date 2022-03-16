@@ -16,7 +16,7 @@ class HotelListViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     let refreshControl = UIRefreshControl()
     var isConnected = false
-    var hotelStore = HotelStore(hotels: [:], hotelArray: [], filteredHotelArray: [])
+    var hotelStore = HotelStore(hotels: [:])
     var isHotelsFiltered: Bool {
         if let searchBarText = searchController.searchBar.text {
             return searchController.isActive && !searchBarText.isEmpty
@@ -69,23 +69,17 @@ class HotelListViewController: UIViewController {
     
     @objc func refreshHotelsData() {
         refreshControl.beginRefreshing()
-        if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
-            hotelStore.isRefreshingHotelsData = true
-            URLSession.shared.dataTask(with: url) { data,_,_  in
-                DispatchQueue.main.async {
-                    if let data = data {
-                        self.isConnected = true
-                        self.hotelStore.parse(json: data)
-                    } else {
-                        self.isConnected = false
-                        self.addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
-                    }
-                    self.refreshControl.endRefreshing()
-                    self.hotelStore.isRefreshingHotelsData = false
-                    self.hotelStore.sortHotels(by: self.hotelStore.sortedBy)
-                    self.reloadCollectionView()
+        hotelStore.getData { error in
+            DispatchQueue.main.async {
+                if error == nil {
+                    self.isConnected = true
+                } else {
+                    self.isConnected = false
+                    self.addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
                 }
-            }.resume()
+                self.refreshControl.endRefreshing()
+                self.reloadCollectionView()
+            }
         }
     }
     
