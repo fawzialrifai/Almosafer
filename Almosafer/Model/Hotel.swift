@@ -19,8 +19,9 @@ class Hotel: NSObject, Codable {
     let address: [String: String?]
     let priorityScore: Double
     let review: Review?
-    var thumbnailData: Data?
-    var isThumbnailDownloaded: Bool?
+    var thumbnail: UIImage?
+    var isThumbnailDownloaded = false
+    enum CodingKeys: CodingKey { case price, name, starRating, thumbnailUrl, latitude, longitude, distanceInMeters, address, priorityScore, review }
     
     struct Review: Codable {
         let count: Int
@@ -58,7 +59,7 @@ class Hotel: NSObject, Codable {
             URLSession.shared.dataTask(with: url) { data,_,_ in
                 if let data = data {
                     DispatchQueue.main.async {
-                        self.thumbnailData = data
+                        self.thumbnail = UIImage(data: data)
                         self.isThumbnailDownloaded = true
                         completionHandler(UIImage(data: data))
                     }
@@ -89,13 +90,6 @@ extension Hotel {
         let attributedName = NSMutableAttributedString.init(string: title)
         attributedName.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow, range: range)
         return attributedName
-    }
-    var thumbnail: UIImage? {
-        if let thumbnailData = thumbnailData, isThumbnailDownloaded == true {
-            return UIImage(data: thumbnailData)
-        } else {
-            return nil
-        }
     }
     var localizedAddress: String {
         (address[languageCode] ?? "") ?? ""

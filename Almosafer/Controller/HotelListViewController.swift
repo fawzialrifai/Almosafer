@@ -82,7 +82,7 @@ class HotelListViewController: UIViewController {
                     }
                     self.refreshControl.endRefreshing()
                     self.hotelStore.isRefreshingHotelsData = false
-                    self.hotelStore.sortHotels(by: self.hotelStore.sortedBy ?? .None)
+                    self.hotelStore.sortHotels(by: self.hotelStore.sortedBy)
                     self.reloadCollectionView()
                 }
             }.resume()
@@ -112,13 +112,13 @@ class HotelListViewController: UIViewController {
     func reloadCollectionView() {
         if isConnected {
             if isHotelsFiltered {
-                if hotelStore.filteredHotelArray?.count == 0 {
+                if hotelStore.filteredHotelArray.count == 0 {
                     addEmptyDataSetViewWithText("No Results")
                 } else {
                     removeEmptyDataSetView()
                 }
             } else {
-                if hotelStore.hotelArray?.count == 0 {
+                if hotelStore.hotelArray.count == 0 {
                     addEmptyDataSetViewWithText("No Hotels")
                 } else {
                     removeEmptyDataSetView()
@@ -162,15 +162,15 @@ class HotelListViewController: UIViewController {
 extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isHotelsFiltered ? hotelStore.filteredHotelArray!.count : hotelStore.hotelArray!.count
+        return isHotelsFiltered ? hotelStore.filteredHotelArray.count : hotelStore.hotelArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Hotel Cell", for: indexPath as IndexPath) as! HotelCollectionViewCell
         cell.tag = indexPath.row
-        let hotel = isHotelsFiltered ? hotelStore.filteredHotelArray![indexPath.row] : hotelStore.hotelArray![indexPath.row]
+        let hotel = isHotelsFiltered ? hotelStore.filteredHotelArray[indexPath.row] : hotelStore.hotelArray[indexPath.row]
         cell.imageView.image = hotel.thumbnail
-        if hotel.isThumbnailDownloaded != true {
+        if !hotel.isThumbnailDownloaded {
             hotel.downloadThumbnail() { thumbnail in
                 if cell.tag == indexPath.row {
                     cell.imageView.image = thumbnail
