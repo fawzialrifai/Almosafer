@@ -24,16 +24,19 @@ class HotelStore: Codable {
 
 extension HotelStore {
     
-    func getData(completionHandler: @escaping ((Error?) -> Void)) {
+    func getData(completionHandler: @escaping (() -> Void)) {
         if let url = URL(string: "https://sgerges.s3-eu-west-1.amazonaws.com/iostesttaskhotels.json") {
             isRefreshingHotelsData = true
             URLSession.shared.dataTask(with: url) { data, _, error  in
                 if let data = data {
+                    isConnected = true
                     self.parseData(data: data)
+                } else {
+                    isConnected = false
                 }
                 self.isRefreshingHotelsData = false
                 self.sortHotels(by: self.sortedBy)
-                completionHandler(error)
+                completionHandler()
             }.resume()
         }
     }

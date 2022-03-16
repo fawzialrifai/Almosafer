@@ -15,7 +15,6 @@ class HotelListViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     let refreshControl = UIRefreshControl()
-    var isConnected = false
     var hotelStore = HotelStore(hotels: [:])
     var isHotelsFiltered: Bool {
         if let searchBarText = searchController.searchBar.text {
@@ -69,14 +68,8 @@ class HotelListViewController: UIViewController {
     
     @objc func refreshHotelsData() {
         refreshControl.beginRefreshing()
-        hotelStore.getData { error in
+        hotelStore.getData {
             DispatchQueue.main.async {
-                if error == nil {
-                    self.isConnected = true
-                } else {
-                    self.isConnected = false
-                    self.addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
-                }
                 self.refreshControl.endRefreshing()
                 self.reloadCollectionView()
             }
@@ -118,6 +111,8 @@ class HotelListViewController: UIViewController {
                     removeEmptyDataSetView()
                 }
             }
+        } else {
+            addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
         }
         collectionView.reloadData()
     }
@@ -243,3 +238,5 @@ var languageCode: String {
         }
     }
 }
+
+var isConnected = false
