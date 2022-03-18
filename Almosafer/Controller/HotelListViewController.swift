@@ -28,7 +28,7 @@ class HotelListViewController: UIViewController {
         super.viewDidLoad()
         title = NSLocalizedString("Dubai, United Arab Emirates", comment: "The name of the city")
         navigationItem.backButtonTitle = NSLocalizedString("Search Results", comment: "Back button title")
-        navigationItem.backButtonDisplayMode = .minimal // hides the back button title.
+        navigationItem.backButtonDisplayMode = .minimal // Hides the back button title
         customizeNavigationBarAppearance()
         setUpSearchBar()
         changeDividerWidth()
@@ -39,12 +39,12 @@ class HotelListViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // fixes a retain cycle that happens when popping HotelListViewController from the navigation stack while the search controller is presented.
+        // Fixes a retain cycle that happens when popping HotelListViewController from the navigation stack while the search controller is presented
         searchController.dismiss(animated: false)
     }
     
     func customizeNavigationBarAppearance() {
-        // customize navigation bar colors.
+        // Customize navigation bar colors
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(named: "AlmosaferColor")
@@ -56,7 +56,7 @@ class HotelListViewController: UIViewController {
     }
     
     func changeDividerWidth() {
-        // The default logical coordinate space is measured using points. For Retina displays, the scale factor may be 3.0 or 2.0, and 1 point can be represented by nine or four pixels. To draw a 1-pixel divider we divide 1 point by the screen scale factor.
+        // The default logical coordinate space is measured using points. For Retina displays, the scale factor may be 3.0 or 2.0, and 1 point can be represented by nine or four pixels. To draw a 1-pixel divider we divide 1 point by the screen scale factor
         dividerWidth.constant = 1 / UIScreen.main.scale
     }
     
@@ -97,7 +97,7 @@ class HotelListViewController: UIViewController {
     }
     
     func reloadCollectionView() {
-        if isConnectedToInternet {
+        if hotelStore.isURLReachable {
             if isHotelsFiltered {
                 if hotelStore.filteredHotelArray.count == 0 {
                     addEmptyDataSetViewWithText("No Results")
@@ -238,5 +238,3 @@ var languageCode: String {
         }
     }
 }
-
-var isConnectedToInternet = false

@@ -12,6 +12,7 @@ class HotelStore: Codable {
     var hotels: [String: Hotel]
     var hotelArray = [Hotel]()
     var filteredHotelArray = [Hotel]()
+    var isURLReachable = false
     var isRefreshingHotelsData = false
     var sortedBy = SortBy.None
     enum CodingKeys: CodingKey { case hotels }
@@ -30,10 +31,10 @@ extension HotelStore {
             hotelArray.removeAll()
             URLSession.shared.dataTask(with: url) { data, _, error  in
                 if let data = data {
-                    isConnectedToInternet = true
+                    self.isURLReachable = true
                     self.parseData(data: data)
                 } else {
-                    isConnectedToInternet = false
+                    self.isURLReachable = false
                 }
                 self.isRefreshingHotelsData = false
                 self.sortHotels(by: self.sortedBy)
