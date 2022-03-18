@@ -171,7 +171,7 @@ extension HotelListViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.reviewScore.backgroundColor = UIColor(hex: hotel.review?.scoreColor ?? "")
         cell.reviewScoreDescription.text = hotel.review?.scoreDescription[languageCode]
         cell.reviewScoreDescription.textColor = UIColor(hex: hotel.review?.scoreColor ?? "")
-        cell.reviewCount.text = String(format: NSLocalizedString("%d reviews", comment: ""), hotel.review?.count ?? 0)
+        cell.reviewCount.text = String(format: NSLocalizedString("%@ reviews", comment: ""), hotel.review?.formattedCount ?? "0")
         cell.address.text = hotel.localizedAddress
         cell.price.text = hotel.priceWithCurrencyCode
         return cell

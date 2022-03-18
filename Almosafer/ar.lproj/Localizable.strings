@@ -13,8 +13,8 @@
 "Star Rating" = "الأعلى تقييمًا";
 "Distance" = "المسافة";
 "Cancel" = "إلغاء";
-"%d reviews" = "%d تقييمات";
-"AED %d" = "%d د.إ";
+"%@ reviews" = "%@ تقييمات";
+"AED %@" = "%@ د.إ";
 "Search Results" = "نتائج البحث";
 "No Hotels" = "لا توجد فنادق";
 "No Results" = "لا توجد نتائج";

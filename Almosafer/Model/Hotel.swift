@@ -28,6 +28,11 @@ class Hotel: NSObject, Codable {
         let score: Double
         let scoreDescription: [String: String]
         let scoreColor: String
+        var formattedCount: String {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            return numberFormatter.string(from: NSNumber(value: count)) ?? "0"
+        }
     }
     
     init(
@@ -74,7 +79,10 @@ extension Hotel {
     
     var priceWithCurrencyCode: String {
         if let price = price {
-            return String(format: NSLocalizedString("AED %d", comment: "The currency code"), price)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let formattedPrice = numberFormatter.string(from: NSNumber(value: price)) ?? "0"
+            return String(format: NSLocalizedString("AED %@", comment: "The currency code"), formattedPrice)
         } else {
             return ""
         }
