@@ -97,22 +97,24 @@ class HotelListViewController: UIViewController {
     }
     
     func reloadCollectionView() {
-        if hotelStore.isURLReachable {
-            if isHotelsFiltered {
-                if hotelStore.filteredHotelArray.count == 0 {
-                    addEmptyDataSetViewWithText("No Results")
+        if !hotelStore.isRefreshingHotelsData {
+            if hotelStore.isURLReachable {
+                if isHotelsFiltered {
+                    if hotelStore.filteredHotelArray.count == 0 {
+                        addEmptyDataSetViewWithText("No Results")
+                    } else {
+                        removeEmptyDataSetView()
+                    }
                 } else {
-                    removeEmptyDataSetView()
+                    if hotelStore.hotelArray.count == 0 {
+                        addEmptyDataSetViewWithText("No Hotels")
+                    } else {
+                        removeEmptyDataSetView()
+                    }
                 }
             } else {
-                if hotelStore.hotelArray.count == 0 {
-                    addEmptyDataSetViewWithText("No Hotels")
-                } else {
-                    removeEmptyDataSetView()
-                }
+                addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
             }
-        } else {
-            addEmptyDataSetViewWithText("Cannot load hotels because your iPhone is not connected to the Internet.")
         }
         collectionView.reloadData()
     }
