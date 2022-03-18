@@ -22,17 +22,16 @@ class ClusterAnnotationView: MKAnnotationView {
     
     override var annotation: MKAnnotation? {
         willSet {
+            canShowCallout = false
             if let cluster = newValue as? MKClusterAnnotation {
-                let annotationsCount = "\(cluster.memberAnnotations.count)"
-                let size = CGSize(width: annotationsCount.size().width + 24, height: annotationsCount.size().width + 24)
-                canShowCallout = false
-                let renderer = UIGraphicsImageRenderer(size: size)
+                let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
                 image = renderer.image { _ in
                     // Fill circle with color
                     UIColor(named: "AlmosaferColor")?.setFill()
-                    UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: size.width, height: size.height)).fill()
+                    UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).fill()
                     // Draw count text vertically and horizontally centered
-                    let rect = CGRect(x: size.width / 2 - annotationsCount.size().width / 2, y: size.height / 2 - annotationsCount.size().height / 2, width: size.width, height: size.height)
+                    let annotationsCount = "\(cluster.memberAnnotations.count)"
+                    let rect = CGRect(x: 20 - annotationsCount.size().width / 2, y: 20 - annotationsCount.size().height / 2, width: annotationsCount.size().width, height: annotationsCount.size().height)
                     annotationsCount.draw(in: rect, withAttributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
                 }
             }
