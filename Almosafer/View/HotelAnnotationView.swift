@@ -15,7 +15,6 @@ class HotelAnnotationView: MKMarkerAnnotationView {
             clusteringIdentifier = "Hotel"
             markerTintColor = UIColor(named: "AlmosaferColor")
             glyphImage = UIImage(systemName: "building.2.crop.circle.fill")
-            displayPriority = .defaultLow
             canShowCallout = true
             let rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             rightCalloutAccessoryView.tintColor = UIColor(named: "ButtonColor")
