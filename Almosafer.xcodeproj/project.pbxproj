@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5800BBD327F0CB0100281527 /* Map Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5800BBD127F0CB0100281527 /* Map Screen.png */; };
+		5800BBD427F0CB0100281527 /* Listing Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5800BBD227F0CB0100281527 /* Listing Screen.png */; };
 		581999F427F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 581999F327F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf */; };
 		5825D63627DA2009005A4F13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63527DA2009005A4F13 /* AppDelegate.swift */; };
 		5825D63827DA2009005A4F13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63727DA2009005A4F13 /* SceneDelegate.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5800BBD127F0CB0100281527 /* Map Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Map Screen.png"; sourceTree = "<group>"; };
+		5800BBD227F0CB0100281527 /* Listing Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Listing Screen.png"; sourceTree = "<group>"; };
 		581999F327F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Seera_iOS_Developer_Programming_Test.pdf; sourceTree = "<group>"; };
 		5825D63227DA2009005A4F13 /* Almosafer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Almosafer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5825D63527DA2009005A4F13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,12 +108,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5800BBD027F0CAEA00281527 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				5800BBD227F0CB0100281527 /* Listing Screen.png */,
+				5800BBD127F0CB0100281527 /* Map Screen.png */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		5825D62927DA2009005A4F13 = {
 			isa = PBXGroup;
 			children = (
 				5825D63427DA2009005A4F13 /* Almosafer */,
 				5825D64B27DA200C005A4F13 /* AlmosaferTests */,
 				5825D65527DA200C005A4F13 /* AlmosaferUITests */,
+				5800BBD027F0CAEA00281527 /* Screenshots */,
 				581999F327F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf */,
 				5825D63327DA2009005A4F13 /* Products */,
 			);
@@ -296,10 +310,12 @@
 			files = (
 				581999F427F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf in Resources */,
 				5825D64227DA200B005A4F13 /* LaunchScreen.storyboard in Resources */,
+				5800BBD327F0CB0100281527 /* Map Screen.png in Resources */,
 				5867AE5927DD092900A9B18B /* Localizable.strings in Resources */,
 				5825D63F27DA200B005A4F13 /* Assets.xcassets in Resources */,
 				5825D63D27DA2009005A4F13 /* Main.storyboard in Resources */,
 				5867AE5F27DD2AE100A9B18B /* InfoPlist.strings in Resources */,
+				5800BBD427F0CB0100281527 /* Listing Screen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
