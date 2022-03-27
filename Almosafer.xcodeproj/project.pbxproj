@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		581999F427F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 581999F327F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf */; };
 		5825D63627DA2009005A4F13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63527DA2009005A4F13 /* AppDelegate.swift */; };
 		5825D63827DA2009005A4F13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63727DA2009005A4F13 /* SceneDelegate.swift */; };
 		5825D63A27DA2009005A4F13 /* HotelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825D63927DA2009005A4F13 /* HotelListViewController.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		581999F327F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Seera_iOS_Developer_Programming_Test.pdf; sourceTree = "<group>"; };
 		5825D63227DA2009005A4F13 /* Almosafer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Almosafer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5825D63527DA2009005A4F13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5825D63727DA2009005A4F13 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				5825D63427DA2009005A4F13 /* Almosafer */,
 				5825D64B27DA200C005A4F13 /* AlmosaferTests */,
 				5825D65527DA200C005A4F13 /* AlmosaferUITests */,
+				581999F327F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf */,
 				5825D63327DA2009005A4F13 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				581999F427F0C01F008E3807 /* Seera_iOS_Developer_Programming_Test.pdf in Resources */,
 				5825D64227DA200B005A4F13 /* LaunchScreen.storyboard in Resources */,
 				5867AE5927DD092900A9B18B /* Localizable.strings in Resources */,
 				5825D63F27DA200B005A4F13 /* Assets.xcassets in Resources */,
